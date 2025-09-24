@@ -1,0 +1,79 @@
+## Development
+
+#Build Image
+docker build -t my-node-app:latest -f Dockerfile.api.dev .
+
+#Run Container // Dev
+docker run -p 3000:3000 -p 9229:9229 my-node-app:latest
+
+#View Logs
+docker logs my-node-app:latest
+
+#Interactive Shells
+docker run -it <image_name> /bin/bash
+# Inside the container
+npm run start
+
+## Production
+
+#Build Image
+docker build -t my-node-app:latest -f Dockerfile.api.prod .
+
+#Run Container // Prod
+docker run -p 8080:8080 my-node-app:latest
+
+#View Logs
+docker logs my-node-app:latest
+
+#Interactive Shells
+docker run -it <image_name> /bin/bash
+# Inside the container
+npm run start
+
+
+## DevContainer
+Step 1: Save the Workspace File (One-Time Setup)
+Open Visual Studio Code.
+
+Go to File → Save as Workspace File.
+
+Save the file in the root of the project solution.
+
+Step 2: Close Visual Studio Code
+Exit Visual Studio Code completely.
+
+Step 3: Open Workspace from File
+Reopen Visual Studio Code.
+
+Go to File → Open Workspace from File.
+
+Select the saved workspace file.
+
+Step 4: Open the Project in a Development Container
+Open the Command Palette (Ctrl + Shift + P or Cmd + Shift + P on macOS).
+
+Type and select: Devcontainers: Reopen in Container.
+
+Step 5: Verify Node.js Installation
+Open a terminal.
+
+Run the command:
+node --version
+
+Step 6: Verify npm Installation
+Open a terminal.
+
+Run the command:
+npm --version
+Troubleshooting npm Version Check Errors
+If an error occurs while running the npm --version command:
+Open Command Palette (Ctrl + Shift + P or Cmd + Shift + P on macOS).
+Type and select: Debug: Toggle Auto Attach.
+Set it to Disabled.
+Close Visual Studio Code.
+Open Command Palette again.
+Type and select: Debug: Toggle Auto Attach.
+Set it to Smart.
+Create a new terminal.
+Run the command again:
+npm --version

@@ -1,0 +1,32 @@
+# Use official Node.js image
+FROM node:22.16.0-slim
+
+# Install build-essential for native add-ons
+RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*
+RUN npm install -g pm2
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json ./
+COPY .swcrc ./
+COPY .env ./
+COPY ecosystem.config.js ./
+COPY tsoa.json ./
+
+# Install dependencies with legacy-peer-deps
+RUN npm install --legacy-peer-deps && npm cache clean --force
+RUN npm audit fix --force
+
+# Copy all source files
+COPY . .
+
+# Run TypeScript build before starting the app
+RUN npm run build
+
+# Expose development ports
+#EXPOSE 3000
+
+# Start application in development mode
+CMD ["pm2-runtime", "ecosystem.config.js", "--only", "cron-worker-dev"]

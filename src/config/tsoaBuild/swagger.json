@@ -1,0 +1,859 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"StatusCodes": {
+				"enum": [
+					100,
+					101,
+					102,
+					103,
+					200,
+					201,
+					202,
+					203,
+					204,
+					205,
+					206,
+					207,
+					300,
+					301,
+					302,
+					303,
+					304,
+					305,
+					307,
+					308,
+					400,
+					401,
+					402,
+					403,
+					404,
+					405,
+					406,
+					407,
+					408,
+					409,
+					410,
+					411,
+					412,
+					413,
+					414,
+					415,
+					416,
+					417,
+					418,
+					419,
+					420,
+					421,
+					422,
+					423,
+					424,
+					426,
+					428,
+					429,
+					431,
+					451,
+					500,
+					501,
+					502,
+					503,
+					504,
+					505,
+					507,
+					511
+				],
+				"type": "number"
+			},
+			"UpdateUserPasswordResponseDto": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PaginationDataResponseModel": {
+				"properties": {
+					"currentPage": {
+						"type": "number",
+						"format": "double"
+					},
+					"totalPages": {
+						"type": "number",
+						"format": "double"
+					},
+					"pageSize": {
+						"type": "number",
+						"format": "double"
+					},
+					"totalCount": {
+						"type": "number",
+						"format": "double"
+					},
+					"hasPrevious": {
+						"type": "boolean"
+					},
+					"hasNext": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DataResponse_UpdateUserPasswordResponseDto_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					},
+					"data": {
+						"$ref": "#/components/schemas/UpdateUserPasswordResponseDto"
+					},
+					"message": {
+						"type": "string"
+					},
+					"pagination": {
+						"$ref": "#/components/schemas/PaginationDataResponseModel"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"traceId": {
+						"type": "string"
+					},
+					"metaData": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateUserPasswordRequestDto": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateUserResponseDto": {
+				"properties": {
+					"identifier": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DataResponse_UpdateUserResponseDto_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					},
+					"data": {
+						"$ref": "#/components/schemas/UpdateUserResponseDto"
+					},
+					"message": {
+						"type": "string"
+					},
+					"pagination": {
+						"$ref": "#/components/schemas/PaginationDataResponseModel"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"traceId": {
+						"type": "string"
+					},
+					"metaData": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateUserRequestDto": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RemoveUserResponseDto": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DataResponse_RemoveUserResponseDto_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					},
+					"data": {
+						"$ref": "#/components/schemas/RemoveUserResponseDto"
+					},
+					"message": {
+						"type": "string"
+					},
+					"pagination": {
+						"$ref": "#/components/schemas/PaginationDataResponseModel"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"traceId": {
+						"type": "string"
+					},
+					"metaData": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetUsersResponseDto": {
+				"properties": {
+					"identifier": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DataResponse_GetUsersResponseDto-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/GetUsersResponseDto"
+						},
+						"type": "array"
+					},
+					"message": {
+						"type": "string"
+					},
+					"pagination": {
+						"$ref": "#/components/schemas/PaginationDataResponseModel"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"traceId": {
+						"type": "string"
+					},
+					"metaData": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetUsersRequestDto": {
+				"properties": {
+					"pageNumber": {
+						"type": "number",
+						"format": "double"
+					},
+					"pageSize": {
+						"type": "number",
+						"format": "double"
+					},
+					"byEmailId": {
+						"type": "string"
+					},
+					"byPhoneNumber": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"pageNumber",
+					"pageSize"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetUserByIdResponseDto": {
+				"properties": {
+					"identifier": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DataResponse_GetUserByIdResponseDto_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					},
+					"data": {
+						"$ref": "#/components/schemas/GetUserByIdResponseDto"
+					},
+					"message": {
+						"type": "string"
+					},
+					"pagination": {
+						"$ref": "#/components/schemas/PaginationDataResponseModel"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"traceId": {
+						"type": "string"
+					},
+					"metaData": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateUserResponseDto": {
+				"properties": {
+					"identifier": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DataResponse_CreateUserResponseDto_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					},
+					"data": {
+						"$ref": "#/components/schemas/CreateUserResponseDto"
+					},
+					"message": {
+						"type": "string"
+					},
+					"pagination": {
+						"$ref": "#/components/schemas/PaginationDataResponseModel"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"traceId": {
+						"type": "string"
+					},
+					"metaData": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateUserRequestDto": {
+				"properties": {
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetOrgByIdResponseDto": {
+				"properties": {
+					"identifier": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"businessEmail": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DataResponse_GetOrgByIdResponseDto_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					},
+					"data": {
+						"$ref": "#/components/schemas/GetOrgByIdResponseDto"
+					},
+					"message": {
+						"type": "string"
+					},
+					"pagination": {
+						"$ref": "#/components/schemas/PaginationDataResponseModel"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"traceId": {
+						"type": "string"
+					},
+					"metaData": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateOrgResponseDto": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DataResponse_CreateOrgResponseDto_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"statusCode": {
+						"$ref": "#/components/schemas/StatusCodes"
+					},
+					"data": {
+						"$ref": "#/components/schemas/CreateOrgResponseDto"
+					},
+					"message": {
+						"type": "string"
+					},
+					"pagination": {
+						"$ref": "#/components/schemas/PaginationDataResponseModel"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"traceId": {
+						"type": "string"
+					},
+					"metaData": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateOrgRequestDto": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"businessEmail": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "NodeExpressApi",
+		"version": "1.0.0",
+		"description": "Express API Server",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/api/v1/users/{id}": {
+			"patch": {
+				"operationId": "PatchAsync",
+				"responses": {
+					"201": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataResponse_UpdateUserPasswordResponseDto_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"description": "Update User Password",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateUserPasswordRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "PutAsync",
+				"responses": {
+					"201": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataResponse_UpdateUserResponseDto_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"description": "Update User",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateUserRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteAsync",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataResponse_RemoveUserResponseDto_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Remove User",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "GetAsync",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataResponse_GetUserByIdResponseDto_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"description": "Get User By Id",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/api/v1/users": {
+			"get": {
+				"operationId": "GetsAsync",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataResponse_GetUsersResponseDto-Array_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"description": "Get user with filter",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "pageNumber",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "byEmailId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "byPhoneNumber",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "PostAsync",
+				"responses": {
+					"201": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataResponse_CreateUserResponseDto_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"description": "Create User",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUserRequestDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/organizations/{id}": {
+			"get": {
+				"operationId": "GetAsync",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataResponse_GetOrgByIdResponseDto_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"description": "Get Org By Id",
+				"tags": [
+					"Organization"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/api/v1/organizations": {
+			"post": {
+				"operationId": "PostAsync",
+				"responses": {
+					"201": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataResponse_CreateOrgResponseDto_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"description": "Create Org",
+				"tags": [
+					"Organizations"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateOrgRequestDto"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
