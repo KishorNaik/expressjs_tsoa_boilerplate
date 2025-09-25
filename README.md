@@ -61,3 +61,210 @@ Here’s a quick overview of what’s inside:
 
 All of these are pre-integrated and exposed via `@kishornaik/utils` npm package, so you don’t need to install or wire them manually. Just import and go.
 This package is fully open source and designed to empower developers with clean, reusable patterns; whether you're building a small service or scaling a platform.
+
+## ⚙️ Installation & Setup
+To get started with this boilerplate, follow the steps below to clone the repository and set up your development environment.
+
+### 🔗 Clone the Repository
+```bash
+git clone https://github.com/KishorNaik/expressjs_tsoa_boilerplate.git
+cd expressjs_tsoa_boilerplate
+```
+
+### 📁 Configure Environment Variables
+Before running the project, create a  file in the root directory and populate it with the required environment variables. Here's a sample configuration:
+```bash
+# PORT
+NODE_ENV="development"
+PORT=3000
+
+# SERVER TIMEOUT
+SERVER_TIMEOUT=15000
+SERVER_KEEP_ALIVE_TIMEOUT=15000
+SERVER_HEADERS_TIMEOUT=16000
+
+# TOKEN
+SECRET_KEY=your_secret_key
+REFRESH_SECRET_KEY=refresh_secret_key
+
+# LOG
+LOG_FORMAT=dev
+LOG_DIR=logs
+
+# CORS
+ORIGIN=*
+CREDENTIALS=true
+
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=root
+DB_DATABASE=pfb
+
+# Redis
+REDIS_HOST=127.0.0.1
+REDIS_DB=0
+REDIS_PORT=6379
+
+# RabbitMQ
+RABBITMQ_URL=amqp://guest:guest@localhost:5672
+
+# AES
+ENCRYPTION_KEY=set_your_encryption_key
+
+# Rate Limit and Throttle
+GLOBAL_WINDOW_MINUTES=15
+RATE_LIMITER=150
+SLOW_DOWN_DELAY_AFTER_HITS=75
+SLOW_DOWN_INITIAL_DELAY_MS=300
+SLOW_DOWN_MAX_DELAY_MS=3000
+
+# Kafka
+KAFKA_BROKER=localhost:9092
+
+# Pusher
+PUSHER_APP_ID=pusher_app_id
+PUSHER_KEY=pusher_key
+PUSHER_SECRET=pusher_secret
+PUSHER_CLUSTER=pusher_cluster
+```
+📝 Note: Many of these environment variables are optional and only required if you're using the corresponding features:
+- Database (PostgreSQL)
+- Redis
+- RabbitMQ
+- Kafka
+- Pusher
+
+### 📦 Install Dependencies
+Make sure you have Node.js (v22) and npm installed. Then run:
+```bash
+npm install
+```
+
+### 🧪 Verify Setup
+```bash
+npm run build
+npm run dev
+```
+Once the server starts, you’ll have access to several built-in endpoints for monitoring and documentation:
+- Health Check → [http://localhost:3000/health]
+Returns a simple status response to confirm the server is alive.
+- API Info → [http://localhost:3000/info]
+Provides metadata about the API — version, environment, and other useful details.
+- Metrics → [http://localhost:3000/metrics]
+Shows metrics information for the current application.
+- Swagger Docs → [http://localhost:3000/api-docs]
+  - Interactive API documentation generated via TSOA and OpenAPI.
+  - ⚠️ Note: Swagger is only available in the development environment for security reasons.
+
+These endpoints are part of the boilerplate’s built-in observability and documentation layer — no extra setup required.
+
+### 🐳 Optional: Devcontainer Setup
+If you're using VS Code with Dev Containers, this project `.devcontainer` includes a  configuration for consistent local development. Just open the folder in VS Code and choose `Reopen in Container` when prompted.
+You can visit [this guide](https://code.visualstudio.com/docs/devcontainers/containers) to learn more about Dev Containers.
+
+#### ⚠️ Devcontainer Runtime Note
+Before running npm run build or npm run dev inside the container, make sure your Node.js and npm versions are properly installed and accessible:
+```bash
+node --version
+npm --version
+```
+
+If you encounter an error like this:
+```bash
+$ npm --version
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/root/.vscode-server/data/User/workspaceStorage/ecbd587727c66e87727639745fae6f85/ms-vscode.js-debug/bootloader.js'
+Require stack:
+- internal/preload
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at Module._preloadModules (node:internal/modules/cjs/loader:1826:12)
+    at loadPreloadModules (node:internal/process/pre_execution:730:5)
+    at setupUserModules (node:internal/process/pre_execution:205:5)
+    at prepareExecution (node:internal/process/pre_execution:158:5)
+    at prepareMainThreadExecution (node:internal/process/pre_execution:53:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ 'internal/preload' ]
+}
+
+Node.js v22.8.0
+```
+This is a known issue related to VS Code’s remote debugger inside Dev Containers. You can find the solution and workaround here:
+https://github.com/devcontainers/images/issues/1189#issuecomment-3331446765
+
+### 🐋 Docker Setup
+This boilerplate includes Docker support for both development and production environments. Instead of using a single docker-compose.yml, the project provides separate Dockerfiles for each service — including the API and background workers.
+📦 Available Dockerfiles
+|  |  |  |
+|  | Dockerfile.api.dev | Dockerfile.api.prod |
+|  | Dockerfile.bullMq.dev | Dockerfile.bullMq.prod |
+|  | Dockerfile.cronJob.dev | Dockerfile.cronJob.prod |
+
+
+📝 Note: BullMQ and CronJob workers are script-based and do not expose any ports. They run as background processes.
+
+
+🚀 Build & Run Commands
+🔧 API Server
+Development:
+docker build -f Dockerfile.api.dev -t api-dev .
+docker run -p 3000:3000 --env-file .env api-dev
+
+
+Production:
+docker build -f Dockerfile.api.prod -t api-prod .
+docker run -p 3000:3000 --env-file .env api-prod
+
+
+
+🧵 BullMQ Worker
+Development:
+docker build -f Dockerfile.bullMq.dev -t bullmq-dev .
+docker run --env-file .env bullmq-dev
+
+
+Production:
+docker build -f Dockerfile.bullMq.prod -t bullmq-prod .
+docker run --env-file .env bullmq-prod
+
+
+
+⏰ Cron Job Worker
+Development:
+docker build -f Dockerfile.cronJob.dev -t cronjob-dev .
+docker run --env-file .env cronjob-dev
+
+
+Production:
+docker build -f Dockerfile.cronJob.prod -t cronjob-prod .
+docker run --env-file .env cronjob-prod
+
+
+
+Let me know when you're ready to move on to the Project Structure section — we can walk developers through the folder layout and how it supports vertical slice architecture.
+
+### 🐋 Docker Setup
+This boilerplate includes Docker support for both development and production environments. Instead of using a single `docker-compose.yml`, the project provides separate Dockerfiles for each service including the API and background workers to give you more control and flexibility
+
+If you prefer, you can create your own `docker-compose.yml` file and configure it as per your deployment needs.
+
+📦 Available Dockerfiles
+
+| Service     | Development | Production |
+| ----------- | ----------- | ----------- |
+| API      | [Dockerfile.api.dev](https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/Dockerfile.api.dev)       | [Dockerfile.api.prod](https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/Dockerfile.api.prod)
+| BullMq   | [Dockerfile.bullMq.dev](https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/Dockerfile.bullMq.dev)        | [Dockerfile.bullMq.prod](https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/Dockerfile.bullMq.prod) |
+| Cron Job   | [Dockerfile.cronJob.dev](https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/Dockerfile.cronJob.dev)        | [Dockerfile.cronJob.prod](https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/Dockerfile.cronJob.prod) |
+
+📝 Notes:
+- BullMQ and CronJob workers are script-based and do not expose any ports. They run as background processes.
+- The API and each worker are intended to be deployed as separate services for scalability and isolation.
+- Dockerfiles for Kafka and RabbitMQ are not included, but you can refer to the BullMQ Dockerfile as a template for creating them.
