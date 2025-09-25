@@ -217,3 +217,45 @@ If you prefer, you can create your own `docker-compose.yml` file and configure i
 - BullMQ and CronJob workers are script-based and do not expose any ports. They run as background processes.
 - The API and each worker are intended to be deployed as separate services for scalability and isolation.
 - Dockerfiles for Kafka and RabbitMQ are not included, but you can refer to the BullMQ Dockerfile as a template for creating them.
+
+#### 🚀 Build & Run Commands
+🔧 API Server
+
+**Development**:
+```bash
+docker build -f Dockerfile.api.dev -t api-dev .
+docker run -p 3000:3000 --env-file .env api-dev
+```
+
+**Production**:
+```bash
+docker build -f Dockerfile.api.prod -t api-prod .
+docker run -p 3000:3000 --env-file .env api-prod
+```
+
+🧵 BullMQ Worker
+
+**Development**:
+```bash
+docker build -f Dockerfile.bullMq.dev -t bullmq-dev .
+docker run --env-file .env bullmq-dev
+```
+
+**Production**:
+```bash
+docker build -f Dockerfile.bullMq.prod -t bullmq-prod .
+docker run --env-file .env bullmq-prod
+```
+
+⏰ Cron Job Worker
+**Development**:
+```bash
+docker build -f Dockerfile.cronJob.dev -t cronjob-dev .
+docker run --env-file .env cronjob-dev
+```
+
+**Production**:
+```bash
+docker build -f Dockerfile.cronJob.prod -t cronjob-prod .
+docker run --env-file .env cronjob-prod
+```
