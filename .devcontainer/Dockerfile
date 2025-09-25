@@ -1,5 +1,5 @@
 # Use official Node.js image
-FROM node:22.16.0-slim
+FROM mcr.microsoft.com/devcontainers/typescript-node:22
 
 # Install necessary system packages
 # Install build-essential for native add-ons

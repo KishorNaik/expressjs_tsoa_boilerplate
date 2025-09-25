@@ -66,6 +66,7 @@ Open a terminal.
 Run the command:
 npm --version
 Troubleshooting npm Version Check Errors
+https://github.com/devcontainers/images/issues/1189
 If an error occurs while running the npm --version command:
 Open Command Palette (Ctrl + Shift + P or Cmd + Shift + P on macOS).
 Type and select: Debug: Toggle Auto Attach.
