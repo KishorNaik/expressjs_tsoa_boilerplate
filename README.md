@@ -200,7 +200,6 @@ Node.js v22.8.0
 This is a known issue related to VS Code’s remote debugger inside Dev Containers. You can find the solution and workaround here:
 https://github.com/devcontainers/images/issues/1189#issuecomment-3331446765
 
-### 🐋 Docker Setup
 This boilerplate includes Docker support for both development and production environments. Instead of using a single docker-compose.yml, the project provides separate Dockerfiles for each service — including the API and background workers.
 📦 Available Dockerfiles
 |  |  |  |
