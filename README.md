@@ -49,15 +49,15 @@ To support this architecture, the boilerplate integrates several powerful open-s
 
 Here’s a quick overview of what’s inside:
 
-| Packages      | Summary |
-| ----------- | ----------- |
-| [tsoa](https://github.com/lukeautry/tsoa)      | Type-safe routing and OpenAPI generation for Express.js using TypeScript decorators.       |
-| [mediatr-ts](https://github.com/m4ss1m0g/mediatr-ts)   | Implements the mediator pattern for decoupled request handling using commands, queries, and handlers. (CQRS Pattern)       |
-| [neverthrow](https://github.com/supermacro/neverthrow)   | Functional error-handling with typed `Result` objects — safer than throwing exceptions.|
-| [typedi](https://github.com/typestack/typedi)   | Dependency injection container for TypeScript, enabling clean service registration and resolution.        |
-| [linq](https://github.com/mihaifm/linq)   | LINQ-style query library for expressive data transformations in JavaScript/TypeScript.        |
-| [typeORM](https://typeorm.io/)   | Feature-rich ORM for TypeScript with support for decorators, migrations, and multiple databases.        |
-| [class-validator](https://github.com/typestack/class-validator)   | Declarative validation for TypeScript classes using decorators — perfect for DTOs and request schemas.        |
+| Packages      | Summary | Must Know |
+| ----------- | ----------- | ----------- |
+| [tsoa](https://github.com/lukeautry/tsoa)      | Type-safe routing and OpenAPI generation for Express.js using TypeScript decorators.       | ✅ |
+| [mediatr-ts](https://github.com/m4ss1m0g/mediatr-ts)   | Implements the mediator pattern for decoupled request handling using commands, queries, and handlers. (CQRS Pattern)       | ❌ |
+| [neverthrow](https://github.com/supermacro/neverthrow)   | Functional error-handling with typed `Result` objects — safer than throwing exceptions.|✅ |
+| [typedi](https://github.com/typestack/typedi)   | Dependency injection container for TypeScript, enabling clean service registration and resolution.        | ✅ |
+| [linq](https://github.com/mihaifm/linq)   | LINQ-style query library for expressive data transformations in JavaScript/TypeScript.        | ❌ |
+| [typeORM](https://typeorm.io/)   | Feature-rich ORM for TypeScript with support for decorators, migrations, and multiple databases.        | ❌ |
+| [class-validator](https://github.com/typestack/class-validator)   | Declarative validation for TypeScript classes using decorators — perfect for DTOs and request schemas.        | ✅
 
 All of these are pre-integrated and exposed via `@kishornaik/utils` npm package, so you don’t need to install or wire them manually. Just import and go.
 This package is fully open source and designed to empower developers with clean, reusable patterns; whether you're building a small service or scaling a platform.
