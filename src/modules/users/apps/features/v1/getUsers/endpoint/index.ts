@@ -11,37 +11,100 @@ import {
 	Request,
 	Middlewares,
 	Queries,
-  Response
+	Response,
 } from 'tsoa';
 import express from 'express';
-import { DataResponse, StatusCodes } from '@kishornaik/utils';
+import {
+	Container,
+	DataResponse,
+	DataResponseFactory,
+	getPropertyNameByType,
+	Order,
+	PaginationDataResponseModel,
+	StatusCodes,
+} from '@kishornaik/utils';
 import { ValidationMiddleware } from '@/middlewares/security/validations';
 import { Endpoint } from '@/shared/utils/helpers/tsoa';
-import { mediator } from '@/shared/utils/helpers/medaitR';
 import { GetUsersRequestDto, GetUsersResponseDto } from '../contracts';
-import { GetUsersQuery } from '../query';
+import { getTraceId, logConstruct, logger } from '@/shared/utils/helpers/loggers';
+import { GetUsersDbService } from '../services/db';
 
 @Route('api/v1/users')
 @Tags('Users')
 export class GetUsersEndpoint extends Endpoint {
+	private readonly _getUsersDbService: GetUsersDbService;
+
+	public constructor() {
+		super();
+		this._getUsersDbService = Container.get(GetUsersDbService);
+	}
+
 	/**
 	 * Get user with filter
 	 */
 	@Get()
 	@Produces('application/json')
 	@SuccessResponse(StatusCodes.OK, 'Ok') // Custom success response
-  @Response(StatusCodes.BAD_REQUEST, 'Bad Request')
-  @Response(StatusCodes.NOT_FOUND, 'Not Found')
+	@Response(StatusCodes.BAD_REQUEST, 'Bad Request')
+	@Response(StatusCodes.NOT_FOUND, 'Not Found')
+	@Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Internal Server Error')
 	@Middlewares([ValidationMiddleware(GetUsersRequestDto)])
 	public async getsAsync(
 		@Request() req: express.Request,
 		@Queries() request: GetUsersRequestDto
-	) : Promise<DataResponse<GetUsersResponseDto[]>> { // Note: Do not add Array as Type use instead [], otherwise tsoa will throw error
-		// Consume Query
-		const response = await mediator.send(new GetUsersQuery(request));
-		// Set Status Code based on the response
-		this.setStatus(response.statusCode);
+	): Promise<DataResponse<GetUsersResponseDto[]>> {
+		// Note: Do not add Array as Type use instead [], otherwise tsoa will throw error
+		const traceId = getTraceId();
 
-		return response;
+		try {
+			// Get Users Db Service
+			const getUserDbServiceResult = await this._getUsersDbService.handleAsync({
+				request: request,
+				order: {
+					by: [
+						getPropertyNameByType<GetUsersRequestDto>('byEmailId'),
+						getPropertyNameByType<GetUsersRequestDto>('byPhoneNumber'),
+					],
+					direction: Order.DESC,
+				},
+			});
+			if (getUserDbServiceResult.isErr()) {
+				this.setStatus(getUserDbServiceResult.error.statusCode);
+				return DataResponseFactory.error(
+					getUserDbServiceResult.error.statusCode,
+					getUserDbServiceResult.error.message,
+					null,
+					traceId,
+					null
+				);
+			}
+
+			// get Db Result
+			const response: GetUsersResponseDto[] = getUserDbServiceResult.value.items;
+			const pagination: PaginationDataResponseModel = getUserDbServiceResult.value.page;
+
+			this.setStatus(StatusCodes.OK);
+			return DataResponseFactory.success(
+				StatusCodes.OK,
+				response,
+				'Success',
+				pagination,
+				traceId,
+				null
+			);
+		} catch (ex) {
+			const error = ex as Error;
+			logger.error(
+				logConstruct(`GetUsersEndpoint`, `getsAsync`, error.message, traceId, error.stack)
+			);
+			this.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+			return DataResponseFactory.error(
+				StatusCodes.INTERNAL_SERVER_ERROR,
+				error.message,
+				null,
+				traceId,
+				null
+			);
+		}
 	}
 }

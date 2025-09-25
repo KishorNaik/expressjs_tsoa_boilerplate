@@ -11,7 +11,7 @@ import {
 	VOID_RESULT,
 	VoidResult,
 } from '@kishornaik/utils';
-import { RemoveUserRequestDto } from '../../../contract';
+import { RemoveUserRequestDto } from '../../contract';
 
 export interface IRemoveUserDbService extends IServiceHandlerVoidAsync<RemoveUserRequestDto> {}
 

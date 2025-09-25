@@ -40,6 +40,6 @@ export class UpdateUserRequestDto {
 
 // #region Response Dto
 export class UpdateUserResponseDto {
-	public identifier?: string;
+	public message?: string;
 }
 // #endregion

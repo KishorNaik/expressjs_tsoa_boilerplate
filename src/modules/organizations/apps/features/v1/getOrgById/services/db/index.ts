@@ -9,7 +9,7 @@ import {
 	Service,
 	StatusCodes,
 } from '@kishornaik/utils';
-import { GetOrgByIdRequestDto, GetOrgByIdResponseDto } from '../../../contract';
+import { GetOrgByIdRequestDto, GetOrgByIdResponseDto } from '../../contract';
 
 export interface IGetOrgByIdDbService
 	extends IServiceHandlerAsync<GetOrgByIdRequestDto, GetOrgByIdResponseDto> {}

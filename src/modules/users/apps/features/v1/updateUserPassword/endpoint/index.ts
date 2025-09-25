@@ -10,41 +10,116 @@ import {
 	Tags,
 	Request,
 	Middlewares,
-  Response,
-  Put,
-  Patch
+	Response,
+	Put,
+	Patch,
 } from 'tsoa';
 import express from 'express';
-import { DataResponse, StatusCodes } from '@kishornaik/utils';
+import { Container, DataResponse, DataResponseFactory, StatusCodes } from '@kishornaik/utils';
 import { ValidationMiddleware } from '@/middlewares/security/validations';
 import { Endpoint } from '@/shared/utils/helpers/tsoa';
-import { mediator } from '@/shared/utils/helpers/medaitR';
 import { UpdateUserPasswordRequestDto, UpdateUserPasswordResponseDto } from '../contract';
-import { UpdateUserPasswordCommand } from '../command';
+import { UserHashPasswordService } from '@/modules/users/shared/services/hashPassword';
+import { UpdatePasswordDbService } from '../services/db';
+import { getTraceId, logConstruct, logger } from '@/shared/utils/helpers/loggers';
 
 @Route('api/v1/users')
 @Tags('Users')
 export class UpdatePasswordUserEndpoint extends Endpoint {
+	private readonly _userHashPasswordService: UserHashPasswordService;
+	private readonly _updatePasswordDbService: UpdatePasswordDbService;
+
+	public constructor() {
+		super();
+		this._userHashPasswordService = Container.get(UserHashPasswordService);
+		this._updatePasswordDbService = Container.get(UpdatePasswordDbService);
+	}
+
 	/**
 	 * Update User Password
 	 */
-	@Patch("{id}")
+	@Patch('{id}')
 	@Produces('application/json')
 	@SuccessResponse(StatusCodes.CREATED, 'Ok') // Custom success response
-  @Response(StatusCodes.BAD_REQUEST, 'Bad Request')
+	@Response(StatusCodes.BAD_REQUEST, 'Bad Request')
+	@Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Internal Server Error')
 	@Middlewares([ValidationMiddleware(UpdateUserPasswordRequestDto)])
 	public async patchAsync(
 		@Request() req: express.Request,
-    @Path() id: string,
+		@Path() id: string,
 		@Body() body: UpdateUserPasswordRequestDto
 	): Promise<DataResponse<UpdateUserPasswordResponseDto>> {
-		// Consume Command
-    body.id = id;
-		const response = await mediator.send(new UpdateUserPasswordCommand(body));
+		const traceId = getTraceId();
+		try {
+			// Request
+			body.id = id;
 
-		// Set Status Code based on the response
-		this.setStatus(response.statusCode);
+			// Password Hash Service
+			const hashPasswordServiceResult = await this._userHashPasswordService.handleAsync({
+				password: body.password,
+			});
+			if (hashPasswordServiceResult.isErr()) {
+				this.setStatus(hashPasswordServiceResult.error.statusCode);
+				return DataResponseFactory.error(
+					hashPasswordServiceResult.error.statusCode,
+					hashPasswordServiceResult.error.message,
+					null,
+					traceId,
+					null
+				);
+			}
+			const hashPasswordResult = hashPasswordServiceResult.value;
 
-		return response;
+			// Update Password Db Service
+			const response = await this._updatePasswordDbService.handleAsync({
+				newPasswordHash: hashPasswordResult.hash,
+				newPasswordSalt: hashPasswordResult.salt,
+				userId: id,
+			});
+			if (response.isErr()) {
+				this.setStatus(response.error.statusCode);
+				return DataResponseFactory.error(
+					response.error.statusCode,
+					response.error.message,
+					null,
+					traceId,
+					null
+				);
+			}
+
+			// Response
+			const responseDto: UpdateUserPasswordResponseDto = new UpdateUserPasswordResponseDto();
+			responseDto.message = `Password updated successfully.`;
+
+			this.setStatus(StatusCodes.OK);
+
+			return DataResponseFactory.success(
+				StatusCodes.OK,
+				responseDto,
+				'Success',
+				null,
+				traceId,
+				null
+			);
+		} catch (ex) {
+			const error = ex as Error;
+			logger.error(
+				logConstruct(
+					`UpdatePasswordUserEndpoint`,
+					`patchAsync`,
+					error.message,
+					traceId,
+					error.stack
+				)
+			);
+			this.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+			return DataResponseFactory.error(
+				StatusCodes.INTERNAL_SERVER_ERROR,
+				error.message,
+				null,
+				traceId,
+				null
+			);
+		}
 	}
 }

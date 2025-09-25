@@ -13,7 +13,7 @@ import {
 } from '@kishornaik/utils';
 import { UpdateUserPasswordRequestDto, UpdateUserPasswordResponseDto } from '../contract';
 import { logger } from '@/shared/utils/helpers/loggers';
-import { UpdatePasswordDbService } from './services/db';
+import { UpdatePasswordDbService } from '../services/db';
 import {
 	IHashPasswordServiceResult,
 	UserHashPasswordService,

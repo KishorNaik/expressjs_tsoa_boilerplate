@@ -9,7 +9,7 @@ import {
 	Service,
 	StatusCodes,
 } from '@kishornaik/utils';
-import { GetUserByIdRequestDto, GetUserByIdResponseDto } from '../../../contract';
+import { GetUserByIdRequestDto, GetUserByIdResponseDto } from '../../contract';
 
 export interface IGetUserByIdDbService
 	extends IServiceHandlerAsync<GetUserByIdRequestDto, GetUserByIdResponseDto> {}

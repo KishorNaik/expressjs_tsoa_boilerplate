@@ -9,7 +9,7 @@ import {
 	Service,
 	StatusCodes,
 } from '@kishornaik/utils';
-import { CreateUserRequestDto, CreateUserResponseDto } from '../../../contract';
+import { CreateUserRequestDto, CreateUserResponseDto } from '../../contract';
 
 export interface ICreateUserDbServiceParameters {
 	request: CreateUserRequestDto;

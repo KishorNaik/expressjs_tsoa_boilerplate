@@ -16,39 +16,39 @@ appInstance.initializeErrorHandling();
 const app = appInstance.getServer();
 
 describe(`update_user_endpoint_integration_test`, () => {
-  beforeEach(async () => {});
+	beforeEach(async () => {});
 
-  /*
+	/*
   Command:
   npm run build
   node --trace-deprecation --test --test-name-pattern='should_return_200_when_user_updated' --require ts-node/register -r tsconfig-paths/register ./src/modules/users/tests/integrations/features/v1/updateUser/index.test.ts
   */
-  it(`should_return_200_when_user_updated`, async () => {
-    // Request Dto
-    const requestDto = new UpdateUserRequestDto();
-    requestDto.firstName = 'john';
-    requestDto.lastName = 'doe';
-    requestDto.email = 'john@example.com';
-    requestDto.phoneNumber = '9161234567';
-    requestDto.id = crypto.randomUUID().toString();
+	it(`should_return_200_when_user_updated`, async () => {
+		// Request Dto
+		const requestDto = new UpdateUserRequestDto();
+		requestDto.firstName = 'john';
+		requestDto.lastName = 'doe';
+		requestDto.email = 'john@example.com';
+		requestDto.phoneNumber = '9161234567';
+		requestDto.id = crypto.randomUUID().toString();
 
-    const endpoint = `/api/v1/users/${requestDto.id}`;
+		const endpoint = `/api/v1/users/${requestDto.id}`;
 
-    const response = await request(app)
-      .put(endpoint)
-      .send(requestDto)
-      .set('Accept', 'application/json');
-    if (response.status !== 200) {
-      console.error('Response:', JSON.stringify(response.body, null, 2));
-      setTimeout(() => {
-        process.exit(0);
-      }, 5000);
-      expect(true).toBe(false);
-    }
+		const response = await request(app)
+			.put(endpoint)
+			.send(requestDto)
+			.set('Accept', 'application/json');
+		if (response.status !== 200) {
+			console.error('Response:', JSON.stringify(response.body, null, 2));
+			setTimeout(() => {
+				process.exit(0);
+			}, 5000);
+			expect(true).toBe(false);
+		}
 
-    setTimeout(() => {
-      process.exit(0);
-    }, 5000);
-    expect(response.status).toBe(200);
-  });
+		setTimeout(() => {
+			process.exit(0);
+		}, 5000);
+		expect(response.status).toBe(200);
+	});
 });

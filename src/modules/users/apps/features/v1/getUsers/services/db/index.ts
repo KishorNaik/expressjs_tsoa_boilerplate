@@ -12,7 +12,7 @@ import {
 	Service,
 	StatusCodes,
 } from '@kishornaik/utils';
-import { GetUsersRequestDto, GetUsersResponseDto } from '../../../contracts';
+import { GetUsersRequestDto, GetUsersResponseDto } from '../../contracts';
 
 export interface IGetUserDbServiceParameters {
 	request: GetUsersRequestDto;

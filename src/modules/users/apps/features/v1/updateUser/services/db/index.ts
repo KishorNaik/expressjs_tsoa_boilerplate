@@ -1,6 +1,7 @@
 import {
 	ExceptionsWrapper,
 	GuardWrapper,
+	IServiceHandlerAsync,
 	IServiceHandlerVoidAsync,
 	Result,
 	ResultError,
@@ -10,15 +11,15 @@ import {
 	VOID_RESULT,
 	VoidResult,
 } from '@kishornaik/utils';
-import { CreateOrgRequestDto } from '../../../contract';
+import { UpdateUserRequestDto, UpdateUserResponseDto } from '../../contract';
 
-export interface ICreateOrgDbService extends IServiceHandlerVoidAsync<CreateOrgRequestDto> {}
+export interface IUpdateUserDbService extends IServiceHandlerVoidAsync<UpdateUserRequestDto> {}
 
 @sealed
 @Service()
-export class CreateOrgDbService implements ICreateOrgDbService {
+export class UpdateUserDbService implements IUpdateUserDbService {
 	public async handleAsync(
-		params: CreateOrgRequestDto
+		params: UpdateUserRequestDto
 	): Promise<Result<VoidResult, ResultError>> {
 		return await ExceptionsWrapper.tryCatchResultAsync(async () => {
 			// Guard
@@ -27,7 +28,7 @@ export class CreateOrgDbService implements ICreateOrgDbService {
 			if (guard.isErr()) return ResultFactory.errorInstance(guard.error);
 
 			// Db Code
-			// ...
+			// ......
 
 			return ResultFactory.success(VOID_RESULT);
 		});

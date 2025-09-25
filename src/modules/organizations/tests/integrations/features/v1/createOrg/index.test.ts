@@ -26,8 +26,8 @@ describe(`create_org_endpoint_integration_test`, () => {
 	it(`should_return_201_when_org_created`, async () => {
 		// Request Dto
 		const requestDto = new CreateOrgRequestDto();
-    requestDto.name = 'John Doe';
-    requestDto.businessEmail = 'john@example.com';
+		requestDto.name = 'John Doe';
+		requestDto.businessEmail = 'john@example.com';
 
 		const response = await request(app)
 			.post('/api/v1/organizations')
