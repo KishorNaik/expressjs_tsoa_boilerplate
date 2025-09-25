@@ -200,56 +200,6 @@ Node.js v22.8.0
 This is a known issue related to VS Code’s remote debugger inside Dev Containers. You can find the solution and workaround here:
 https://github.com/devcontainers/images/issues/1189#issuecomment-3331446765
 
-This boilerplate includes Docker support for both development and production environments. Instead of using a single docker-compose.yml, the project provides separate Dockerfiles for each service — including the API and background workers.
-📦 Available Dockerfiles
-|  |  |  |
-|  | Dockerfile.api.dev | Dockerfile.api.prod |
-|  | Dockerfile.bullMq.dev | Dockerfile.bullMq.prod |
-|  | Dockerfile.cronJob.dev | Dockerfile.cronJob.prod |
-
-
-📝 Note: BullMQ and CronJob workers are script-based and do not expose any ports. They run as background processes.
-
-
-🚀 Build & Run Commands
-🔧 API Server
-Development:
-docker build -f Dockerfile.api.dev -t api-dev .
-docker run -p 3000:3000 --env-file .env api-dev
-
-
-Production:
-docker build -f Dockerfile.api.prod -t api-prod .
-docker run -p 3000:3000 --env-file .env api-prod
-
-
-
-🧵 BullMQ Worker
-Development:
-docker build -f Dockerfile.bullMq.dev -t bullmq-dev .
-docker run --env-file .env bullmq-dev
-
-
-Production:
-docker build -f Dockerfile.bullMq.prod -t bullmq-prod .
-docker run --env-file .env bullmq-prod
-
-
-
-⏰ Cron Job Worker
-Development:
-docker build -f Dockerfile.cronJob.dev -t cronjob-dev .
-docker run --env-file .env cronjob-dev
-
-
-Production:
-docker build -f Dockerfile.cronJob.prod -t cronjob-prod .
-docker run --env-file .env cronjob-prod
-
-
-
-Let me know when you're ready to move on to the Project Structure section — we can walk developers through the folder layout and how it supports vertical slice architecture.
-
 ### 🐋 Docker Setup
 This boilerplate includes Docker support for both development and production environments. Instead of using a single `docker-compose.yml`, the project provides separate Dockerfiles for each service including the API and background workers to give you more control and flexibility
 
