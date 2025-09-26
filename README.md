@@ -428,134 +428,308 @@ This boilerplate comes with a rich set of npm scripts to streamline development,
 
 ```markdown
 ├───.dockerignore
-  ├───.editorconfig
-  ├───.eslintignore
-  ├───.eslintrc
-  ├───.gitignore
-  ├───.lintstagedrc.json
-  ├───.prettierrc
-  ├───.swcrc
-  ├───docker.Command.txt
-  ├───Dockerfile.api.dev
-  ├───Dockerfile.api.prod
-  ├───Dockerfile.bullMq.dev
-  ├───Dockerfile.bullMq.prod
-  ├───Dockerfile.cronJob.dev
-  ├───Dockerfile.cronJob.prod
-  ├───ecosystem.config.js
-  ├───LICENSE
-  ├───Makefile
-  ├───nginx.conf
-  ├───nodemon.json
-  ├───package-lock.json
-  ├───package.json
-  ├───README.md
-  ├───RunTest.sh
-  ├───tsconfig.json
-  ├───tsoa_base.code-workspace
-  ├───tsoa.json
-  ├───.devcontainer\
-  │   ├───devcontainer.json
-  │   └───Dockerfile
-  ├───.git\
-  ├───.husky\
-  │   ├───pre-commit
-  │   └───_
-  ├───.qodo\
-  ├───.vscode\
-  │   ├───launch.json
-  │   └───settings.json
-  ├───dist\
-  ├───logs\
-  ├───node_modules\
-  └───src\
-      ├───app.ts
-      ├───server.ts
-      ├───config\
-      │   ├───db\
-      │   │   └───index.ts
-      │   ├───env\
-      │   │   └───index.ts
-      │   ├───trpc\
-      │   │   └───index.ts
-      │   ├───tsoaBuild\
-      │   │   ├───routes.ts
-      │   │   └───swagger.json
-      │   └───worker\
-      │       └───index.ts
-      ├───middlewares\
-      │   ├───exception\
-      │   │   └───index.ts
-      │   ├───loggers\
-      │   │   ├───http\
-      │   │   │   └───index.ts
-      │   │   └───trace\
-      │   │       └───index.ts
-      │   ├───security\
-      │   │   ├───auth\
-      │   │   │   ├───hmac\
-      │   │   │   │   └───index.ts
-      │   │   │   └───jwt\
-      │   │   │       └───index.ts
-      │   │   ├───ipTracker\
-      │   │   │   └───index.ts
-      │   │   ├───rateLimit\
-      │   │   │   └───index.ts
-      │   │   ├───throttling\
-      │   │   │   └───index.ts
-      │   │   └───validations\
-      │   │       └───index.ts
-      │   └───tooBusy\
-      │       └───index.ts
-      ├───modules\
-      │   └───...
-      ├───shared\
-      │   └───utils\
-      │       └───helpers\
-      │           ├───bullMq\
-      │           │   └───index.ts
-      │           ├───cronJob\
-      │           │   └───index.ts
-      │           ├───eventDispatcher\
-      │           │   └───index.ts
-      │           ├───kafka\
-      │           │   └───index.ts
-      │           ├───loggers\
-      │           │   └───index.ts
-      │           ├───medaitR\
-      │           │   └───index.ts
-      │           ├───pusher\
-      │           │   └───index.ts
-      │           ├───rabbitmq\
-      │           │   └───index.ts
-      │           ├───traceId\
-      │           │   └───index.ts
-      │           └───tsoa\
-      │               └───index.ts
-      ├───workers\
-      │   ├───bullMq\
-      │   │   └───index.ts
-      │   ├───cronJob\
-      │   │   └───index.ts
-      │   ├───eventDispatcher\
-      │   │   └───index.ts
-      │   ├───kafka\
-      │   │   └───index.ts
-      │   ├───pusher\
-      │   │   └───index.ts
-      │   └───rabbitMq\
-      │       └───index.ts
-      └───zone\
-          ├───test\
-          │   └───index.test.ts
-          └───tools\
-              ├───aes\
-              │   └───index.ts
-              └───autocannon\
-                  └───index.ts
+├───.editorconfig
+├───.eslintignore
+├───.eslintrc
+├───.gitignore
+├───.lintstagedrc.json
+├───.prettierrc
+├───.swcrc
+├───docker.Command.txt
+├───Dockerfile.api.dev
+├───Dockerfile.api.prod
+├───Dockerfile.bullMq.dev
+├───Dockerfile.bullMq.prod
+├───Dockerfile.cronJob.dev
+├───Dockerfile.cronJob.prod
+├───ecosystem.config.js
+├───LICENSE
+├───Makefile
+├───nginx.conf
+├───nodemon.json
+├───package-lock.json
+├───package.json
+├───README.md
+├───RunTest.sh
+├───tsconfig.json
+├───tsoa_base.code-workspace
+├───tsoa.json
+├───.devcontainer\
+│   ├───devcontainer.json
+│   └───Dockerfile
+├───.git\
+├───.husky\
+│   ├───pre-commit
+│   └───_
+├───.qodo\
+├───.vscode\
+│   ├───launch.json
+│   └───settings.json
+├───dist\
+├───logs\
+├───node_modules\
+└───src\
+    ├───app.ts
+    ├───server.ts
+    ├───config\
+    │   ├───db\
+    │   │   └───index.ts
+    │   ├───env\
+    │   │   └───index.ts
+    │   ├───trpc\
+    │   │   └───index.ts
+    │   ├───tsoaBuild\
+    │   │   ├───routes.ts
+    │   │   └───swagger.json
+    │   └───worker\
+    │       └───index.ts
+    ├───middlewares\
+    │   ├───exception\
+    │   │   └───index.ts
+    │   ├───loggers\
+    │   │   ├───http\
+    │   │   │   └───index.ts
+    │   │   └───trace\
+    │   │       └───index.ts
+    │   ├───security\
+    │   │   ├───auth\
+    │   │   │   ├───hmac\
+    │   │   │   │   └───index.ts
+    │   │   │   └───jwt\
+    │   │   │       └───index.ts
+    │   │   ├───ipTracker\
+    │   │   │   └───index.ts
+    │   │   ├───rateLimit\
+    │   │   │   └───index.ts
+    │   │   ├───throttling\
+    │   │   │   └───index.ts
+    │   │   └───validations\
+    │   │       └───index.ts
+    │   └───tooBusy\
+    │       └───index.ts
+    ├───modules\
+    │   └───...
+    ├───shared\
+    │   └───utils\
+    │       └───helpers\
+    │           ├───bullMq\
+    │           │   └───index.ts
+    │           ├───cronJob\
+    │           │   └───index.ts
+    │           ├───eventDispatcher\
+    │           │   └───index.ts
+    │           ├───kafka\
+    │           │   └───index.ts
+    │           ├───loggers\
+    │           │   └───index.ts
+    │           ├───medaitR\
+    │           │   └───index.ts
+    │           ├───pusher\
+    │           │   └───index.ts
+    │           ├───rabbitmq\
+    │           │   └───index.ts
+    │           ├───traceId\
+    │           │   └───index.ts
+    │           └───tsoa\
+    │               └───index.ts
+    ├───workers\
+    │   ├───bullMq\
+    │   │   └───index.ts
+    │   ├───cronJob\
+    │   │   └───index.ts
+    │   ├───eventDispatcher\
+    │   │   └───index.ts
+    │   ├───kafka\
+    │   │   └───index.ts
+    │   ├───pusher\
+    │   │   └───index.ts
+    │   └───rabbitMq\
+    │       └───index.ts
+    └───zone\
+        ├───test\
+        │   └───index.test.ts
+        └───tools\
+            ├───aes\
+            │   └───index.ts
+            └───autocannon\
+                └───index.ts
+```
+### 🚀 Application Entry Points
+```markdown
+└───src\
+    ├───app.ts
+    ├───server.ts
+```
+At the root of the  directory, you’ll find two key files that bootstrap the application:
+#### 🧩 app.ts
+This file is responsible for assembling the Express application. It handles:
+- Registering built-in middlewares (e.g., CORS, body parsing, logging)
+- Setting up Swagger/OpenAPI documentation via TSOA
+- Mounting routes
+- Applying global error-handling middleware
+- Applies server-level configurations like timeouts and keep-alive setting
+- Applying port and listen.
+
+Think of `app.ts` as the application builder — it wires together all the core pieces before the server starts.
+
+#### 🏁 server.ts
+This is the entry point of the application. It:
+- Imports the configured app from `app.ts`
+- Starts the HTTP server
+📌 Note: This separation keeps your app logic clean and testable, while isolating server concerns like port binding and lifecycle management.
+
+### ⚙️ Configuration Directory
+
+```markdown
+└───src\
+    ├───config\
+    │   ├───db\
+    │   │   └───index.ts
+    │   ├───env\
+    │   │   └───index.ts
+    │   ├───trpc\
+    │   │   └───index.ts
+    │   ├───tsoaBuild\
+    │   │   ├───routes.ts
+    │   │   └───swagger.json
+    │   └───worker\
+    │       └───index.ts
+```
+The `src\config\` folder centralizes all configuration-related logic and constants. It’s designed to keep environment setup, service bindings, and build artifacts cleanly separated from business logic.
+
+#### 📦 Folder Breakdown
+- `env/`
+Centralizes  variable access and constants. This is where you define and export environment-specific values used across the app.
+
+- `db/`
+Contains database configuration — connection setup, ORM bindings, and any DB-specific constants.
+
+- `trpc/`
+Handles tRPC configuration and router bindings if you're using tRPC alongside TSOA.
+
+- `tsoaBuild/`
+stores auto-generated TSOA artifacts.
+  - `routes.ts` Generated route bindings
+  - `swagger.json` OpenAPI spec used for Swagger UI
+- `worker/`
+Registers the plugins for the workers.
+
+📌 Note: This folder is meant for configuration only — avoid placing business logic or feature code here. Keep it clean, declarative, and environment-aware.
+
+### 🧩 Middleware Structure
+```markdown
+└───src\
+    ├───middlewares\
+    │   ├───exception\
+    │   │   └───index.ts
+    │   ├───loggers\
+    │   │   ├───http\
+    │   │   │   └───index.ts
+    │   │   └───trace\
+    │   │       └───index.ts
+    │   ├───security\
+    │   │   ├───auth\
+    │   │   │   ├───hmac\
+    │   │   │   │   └───index.ts
+    │   │   │   └───jwt\
+    │   │   │       └───index.ts
+    │   │   ├───ipTracker\
+    │   │   │   └───index.ts
+    │   │   ├───rateLimit\
+    │   │   │   └───index.ts
+    │   │   ├───throttling\
+    │   │   │   └───index.ts
+    │   │   └───validations\
+    │   │       └───index.ts
+    │   └───tooBusy\
+    │       └───index.ts
+```
+The `src\middlewares\` directory is dedicated to housing all middleware logic used across the application. It’s organized by category to keep things modular and easy to extend.
+
+Each subfolder represents a logical grouping — such as logging, security, or exception handling — and contains one or more middleware implementations.
+
+📌 Note: Built-in middlewares are already implemented and wired into the app. If you want to create your own custom middleware, this is the place to do it. Follow the existing folder structure and always use  as the entry file.
+
+### 🛠️ Shared Utility
+```markdown
+└───src\
+    ├───shared\
+    │   └───utils\
+    │       └───helpers\
+    │           ├───bullMq\
+    │           │   └───index.ts
+    │           ├───cronJob\
+    │           │   └───index.ts
+    │           ├───eventDispatcher\
+    │           │   └───index.ts
+    │           ├───kafka\
+    │           │   └───index.ts
+    │           ├───loggers\
+    │           │   └───index.ts
+    │           ├───medaitR\
+    │           │   └───index.ts
+    │           ├───pusher\
+    │           │   └───index.ts
+    │           ├───rabbitmq\
+    │           │   └───index.ts
+    │           ├───traceId\
+    │           │   └───index.ts
+    │           └───tsoa\
+    │               └───index.ts
+```
+The `src\shared\utils\`  directory is dedicated to reusable utility functions that support various parts of the application. Each helper is scoped by concern — such as messaging, logging, or tracing — and organized into its own folder.
+
+📌 Note:
+- Each helper must live in its own folder, not as a standalone file.
+- The implementation should always reside in an index.ts file inside that folder.
+- This convention ensures consistency, clean imports, and easy discoverability.
+
+If you’re adding a new helper, follow the same structure and naming pattern to keep the codebase modular and maintainable.
+
+### ⚙️ Worker Runtime
+```markdown
+└───src\
+    ├───workers\
+    │   ├───bullMq\
+    │   │   └───index.ts
+    │   ├───cronJob\
+    │   │   └───index.ts
+    │   ├───eventDispatcher\
+    │   │   └───index.ts
+    │   ├───kafka\
+    │   │   └───index.ts
+    │   ├───pusher\
+    │   │   └───index.ts
+    │   └───rabbitMq\
+    │       └───index.ts
+```
+The `src/workers/` directory contains the runtime entry points for all background workers. These workers are designed to run independently and are not bound to the API execution lifecycle.
+Each worker is deployed as a separate Node.js service, allowing for horizontal scaling, isolated failure handling, and optimized resource allocation.
+
+📌 Note:
+- Workers are executed via dedicated npm scripts.
+- Do not place business logic directly in this folder — use domain modules for that.
+- Each worker runs in its own process and can be deployed separately.
+
+### 🧪 Tool Testing Zone
+```markdown
+└───src\
+    └───zone\
+        ├───test\
+        │   └───index.test.ts
+        └───tools\
+            ├───aes\
+            │   └───index.ts
+            └───autocannon\
+                └───index.ts
 ```
 
-### Modules Structure
+The `src/zone/` directory is reserved for isolated tool testing and experimentation. It’s a sandboxed space where you can validate utilities, benchmark performance, or run standalone test cases without affecting core modules.
+
+📌 Note: This section is meant for internal validation and experimentation. It’s not tied to domain modules or production logic.
+
+
+### Overview of Modules Structure
 
 ```markdown
 modules/
@@ -680,3 +854,110 @@ modules/
                       └───updateUserPassword/
                           └───index.test.ts
 ```
+### ⚙️ Worker Module Registration
+```markdown
+modules/
+  ├───app.Module.ts
+  ├───bullMq.Worker.Module.ts
+  ├───cronJon.Worker.Module.ts
+  ├───eventDispatcher.Worker.Module.ts
+  ├───kafka.Worker.Module.ts
+  ├───pusher.Worker.Module.ts
+  ├───rabbitMq.Worker.Module.ts
+```
+This boilerplate supports multiple background processing strategies — including BullMQ, Cron Jobs, Kafka, RabbitMQ, Pusher, and in-memory event dispatchers. Each worker type is registered modularly to keep the system scalable and maintainable.
+
+Each of these worker modules is responsible for:
+- Registering worker handlers from domain modules (e.g.,`users.Module.ts`,`organization.Module.ts` )
+- Bootstrapping the worker runtime (via PM2 or direct execution)
+- Isolating background logic for better scalability and deployment control
+
+#### 🧭 How It Works
+- Every domain module (like users.Module.ts) can expose one or more worker handlers.
+- These handlers are imported and registered inside the corresponding worker module (e.g., bullMq.Worker.Module.ts).
+- This design allows each worker to run independently — whether in Docker, PM2, or serverless environments.
+
+📌 Note: This modular registration pattern ensures that each worker service can be deployed, scaled, and monitored separately — without coupling it to the main API runtime.
+
+
+
+
+### 🔄 Domain-Scoped Shared Services Code Structure
+
+```markdown
+modules/
+  ├───shared/
+  │   └───users/
+  │       └───services/
+  │           ├───hashPassword/
+  │           │   └───index.ts
+  │           ├───jwt/
+  │           │   └───index.ts
+  │           └───jwtTokenProvider/
+  │               └───index.ts
+```
+In this boilerplate, `shared` services are organized under the `/modules/shared` directory — but with a twist: they’re scoped by domain.
+This means that if a service is reused across multiple modules, it should still live within a domain-specific context.
+
+#### 🧭 Why Domain-Scoped?
+- Keeps shared logic bounded to its domain, avoiding global sprawl
+- Encourages modular reuse without breaking encapsulation
+- Makes it easier to reason about dependencies and service ownership
+
+In the example above, `users` is the domain, and all shared services related to user authentication or security (like hashing, JWT, token providers) are grouped under `modules/shared/users/services`.
+
+📌 Note: This structure is intentional. Even shared logic should respect domain boundaries to maintain clarity and modularity.
+
+
+### Domain (Module) Code Structure
+```markdown
+users/
+├───users.Module.ts
+├───apps/
+│   └───features/
+│       └───v1/
+│           ├───createUser/
+│           │   ├───contract/
+│           │   │   └───index.ts
+│           │   ├───endpoint/
+│           │   │   └───index.ts
+│           │   └───services/
+│           │       └───db/
+│           │           └───index.ts
+├───shared/
+│   └───services/
+│       └───hashPassword/
+│           └───index.ts
+│───tests/
+    └───integrations/
+        └───features/
+            └───v1/
+                ├───createUser/
+                │   └───index.test.ts
+```
+#### 📦 Folder Breakdown
+- `users/`
+Represents a module. Each module encapsulates its own features, services, and tests.
+- `user.module.ts`
+Register workers for the module.
+- `apps/features/v1/`
+Contains versioned features. You can create multiple versions (v1, v2, etc.) to support API evolution.
+- `createUser/`
+A feature folder. Every feature should be a folder — not a file — to maintain consistency and extensibility.
+  - `contract/`
+  Contains request and response DTOs with `class-validator` decorators for validation.
+  - `endpoint/`
+  Defines the controller or route handler. Services are injected using **Dependency Injection** `(typedi)`.
+  - `service/`
+  Contains business logic. Each service should follow the **Single Responsibility Principle** and live in its own folder.
+- `shared/`
+Contains reusable logic within the module’s bounded context. For example,  is a shared utility used across features.
+- `tests/`
+Integration tests are organized by module and feature version to ensure clarity and traceability.
+
+#### ⚠️ Naming Convention Note
+- Every feature or service must be a `folder`, not a standalone file.
+- The implementation must reside in an `index.ts` file inside that folder.
+- This convention ensures consistency, discoverability, and clean imports across the codebase.
+
+
