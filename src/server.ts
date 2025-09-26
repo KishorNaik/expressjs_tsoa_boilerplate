@@ -4,6 +4,7 @@ import { trpcModulesFederation } from './modules/app.Module';
 import { removeDatabase, setDatabase } from './config/db';
 import { runEventDispatcherWorker } from './workers/eventDispatcher';
 
+console.log(`Test Husky`);
 ValidateEnv();
 
 const bootstrap = () => {
