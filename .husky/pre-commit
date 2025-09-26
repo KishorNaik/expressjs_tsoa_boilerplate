@@ -1,1 +1,3 @@
+echo "--- Husky pre-commit hook started ---"
 npm run build:tsc && git add .
+echo "--- Husky pre-commit hook finished ---"
