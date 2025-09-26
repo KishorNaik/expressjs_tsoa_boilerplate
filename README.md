@@ -21,7 +21,7 @@ Whether you're spinning up a new service or standardizing API development across
   - **Pusher** – A real-time messaging service for push notifications and live updates
   - **In-memory Event Dispatcher** for lightweight pub-sub flows
 - Developer-friendly Tooling: The boilerplate is configured with a set of tools to improve the developer experience, including:
-  - **SWC** – A super-fast JavaScript/TypeScript compiler for blazing-fast builds
+  - **SWC** – A super-fast Rust based JavaScript/TypeScript compiler for blazing-fast builds
   - **ESLint** – A pluggable linter for catching bugs and enforcing code style
   - **Prettier** – An opinionated code formatter for clean, readable code
   - **Husky** – Git hook support for pre-commit checks and automation
@@ -214,9 +214,9 @@ If you prefer, you can create your own `docker-compose.yml` file and configure i
 | Cron Job   | [Dockerfile.cronJob.dev](https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/Dockerfile.cronJob.dev)        | [Dockerfile.cronJob.prod](https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/Dockerfile.cronJob.prod) |
 
 📝 Notes:
-- BullMQ and CronJob workers are script-based and do not expose any ports. They run as background processes.
+- BullMQ, Apache Kafka, RabbitMq and CronJob workers are script-based and do not expose any ports. They run as background processes.
 - The API and each worker are intended to be deployed as separate services for scalability and isolation.
-- Dockerfiles for Kafka and RabbitMQ are not included, but you can refer to the BullMQ Dockerfile as a template for creating them.
+- Dockerfiles for Kafka worker and RabbitMQ worker are not included, but you can refer to the BullMQ worker Dockerfile as a template for creating them.
 
 #### 🚀 Build & Run Commands
 🔧 API Server
@@ -259,3 +259,19 @@ docker run --env-file .env cronjob-dev
 docker build -f Dockerfile.cronJob.prod -t cronjob-prod .
 docker run --env-file .env cronjob-prod
 ```
+### 🔁 PM2 Process Manager
+This boilerplate uses PM2 as the default process manager for running both the API and background workers in containerized environments. PM2 ensures reliable process management, automatic restarts, and clean logging especially useful in production.
+
+#### 📂 Configuration
+PM2 setup is already defined in the project. If you’d like to customize process names, environment variables, or script paths, you can modify the config file here:
+👉 https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/ecosystem.config.js
+
+#### 🐋 Docker Integration
+All Dockerfiles — for the API and workers — are configured to use PM2 runtime internally. This means:
+- Each service runs as a managed PM2 process inside its container
+- Logs and lifecycle events are handled automatically
+- You don’t need to manually invoke pm2 start — it’s baked into the Docker entrypoint
+
+#### 🖥️ Local Development Note
+For local development, the API and workers run using standard npm scripts. PM2 is not used by default. However, if you prefer to run services locally using PM2, we’ve provided dedicated scripts for that in the `Available Scripts` section of the documentation.
+
