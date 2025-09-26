@@ -421,3 +421,262 @@ This boilerplate comes with a rich set of npm scripts to streamline development,
 | **npm:outdated**              | Shows a list of all outdated npm packages.                                 |
 | **npm:latest-package-update** | Updates all dependencies to their latest versions using npm-check-updates. |
 | **trpc:type**                 | Generates a TypeScript declaration file for the tRPC App Router.           |
+
+## 🗂 Code Structure
+
+### Base Structure
+
+```markdown
+├───.dockerignore
+├───.editorconfig
+├───.eslintignore
+├───.eslintrc
+├───.gitignore
+├───.lintstagedrc.json
+├───.prettierrc
+├───.swcrc
+├───docker.Command.txt
+├───Dockerfile.api.dev
+├───Dockerfile.api.prod
+├───Dockerfile.bullMq.dev
+├───Dockerfile.bullMq.prod
+├───Dockerfile.cronJob.dev
+├───Dockerfile.cronJob.prod
+├───ecosystem.config.js
+├───LICENSE
+├───Makefile
+├───nginx.conf
+├───nodemon.json
+├───package-lock.json
+├───package.json
+├───README.md
+├───RunTest.sh
+├───tsconfig.json
+├───tsoa*base.code-workspace
+├───tsoa.json
+├───.devcontainer\
+ │ ├───devcontainer.json
+│ └───Dockerfile
+├───.git\
+ ├───.husky\
+ │ ├───pre-commit
+│ └───*
+├───.qodo\
+ ├───.vscode\
+ │ ├───launch.json
+│ └───settings.json
+├───dist\
+ ├───logs\
+ ├───node_modules\
+ └───src\
+ ├───app.ts
+├───server.ts
+├───config\
+ │ ├───db\
+ │ │ └───index.ts
+│ ├───env\
+ │ │ └───index.ts
+│ ├───trpc\
+ │ │ └───index.ts
+│ ├───tsoaBuild\
+ │ │ ├───routes.ts
+│ │ └───swagger.json
+│ └───worker\
+ │ └───index.ts
+├───middlewares\
+ │ ├───exception\
+ │ │ └───index.ts
+│ ├───loggers\
+ │ │ ├───http\
+ │ │ │ └───index.ts
+│ │ └───trace\
+ │ │ └───index.ts
+│ ├───security\
+ │ │ ├───auth\
+ │ │ │ ├───hmac\
+ │ │ │ │ └───index.ts
+│ │ │ └───jwt\
+ │ │ │ └───index.ts
+│ │ ├───ipTracker\
+ │ │ │ └───index.ts
+│ │ ├───rateLimit\
+ │ │ │ └───index.ts
+│ │ ├───throttling\
+ │ │ │ └───index.ts
+│ │ └───validations\
+ │ │ └───index.ts
+│ └───tooBusy\
+ │ └───index.ts
+├───modules\
+ │ └───...
+├───shared\
+ │ └───utils\
+ │ └───helpers\
+ │ ├───bullMq\
+ │ │ └───index.ts
+│ ├───cronJob\
+ │ │ └───index.ts
+│ ├───eventDispatcher\
+ │ │ └───index.ts
+│ ├───kafka\
+ │ │ └───index.ts
+│ ├───loggers\
+ │ │ └───index.ts
+│ ├───medaitR\
+ │ │ └───index.ts
+│ ├───pusher\
+ │ │ └───index.ts
+│ ├───rabbitmq\
+ │ │ └───index.ts
+│ ├───traceId\
+ │ │ └───index.ts
+│ └───tsoa\
+ │ └───index.ts
+├───workers\
+ │ ├───bullMq\
+ │ │ └───index.ts
+│ ├───cronJob\
+ │ │ └───index.ts
+│ ├───eventDispatcher\
+ │ │ └───index.ts
+│ ├───kafka\
+ │ │ └───index.ts
+│ ├───pusher\
+ │ │ └───index.ts
+│ └───rabbitMq\
+ │ └───index.ts
+└───zone\
+ ├───test\
+ │ └───index.test.ts
+└───tools\
+ ├───aes\
+ │ └───index.ts
+└───autocannon\
+ └───index.ts
+```
+
+### Modules Structure
+
+```markdown
+modules/
+├───app.Module.ts
+├───bullMq.Worker.Module.ts
+├───cronJon.Worker.Module.ts
+├───eventDispatcher.Worker.Module.ts
+├───kafka.Worker.Module.ts
+├───pusher.Worker.Module.ts
+├───rabbitMq.Worker.Module.ts
+├───organizations/
+│ ├───org.Module.ts
+│ ├───apps/
+│ │ └───features/
+│ │ └───v1/
+│ │ ├───createOrg/
+│ │ │ ├───contract/
+│ │ │ │ └───index.ts
+│ │ │ ├───endpoint/
+│ │ │ │ └───index.ts
+│ │ │ └───services/
+│ │ │ └───db/
+│ │ │ └───index.ts
+│ │ └───getOrgById/
+│ │ ├───contract/
+│ │ │ └───index.ts
+│ │ ├───endpoint/
+│ │ │ └───index.ts
+│ │ └───services/
+│ │ └───db/
+│ │ └───index.ts
+│ └───tests/
+│ └───integrations/
+│ └───features/
+│ └───v1/
+│ ├───createOrg/
+│ │ └───index.test.ts
+│ └───getOrgById/
+│ └───index.test.ts
+├───shared/
+│ └───users/
+│ └───services/
+│ ├───hashPassword/
+│ │ └───index.ts
+│ ├───jwt/
+│ │ └───index.ts
+│ └───jwtTokenProvider/
+│ └───index.ts
+└───users/
+├───users.Module.ts
+├───apps/
+│ └───features/
+│ └───v1/
+│ ├───createUser/
+│ │ ├───contract/
+│ │ │ └───index.ts
+│ │ ├───endpoint/
+│ │ │ └───index.ts
+│ │ └───services/
+│ │ └───db/
+│ │ └───index.ts
+│ ├───getUserById/
+│ │ ├───contract/
+│ │ │ └───index.ts
+│ │ ├───endpoint/
+│ │ │ └───index.ts
+│ │ └───services/
+│ │ └───db/
+│ │ └───index.ts
+│ ├───getUsers/
+│ │ ├───contracts/
+│ │ │ └───index.ts
+│ │ ├───endpoint/
+│ │ │ └───index.ts
+│ │ └───services/
+│ │ └───db/
+│ │ └───index.ts
+│ ├───removeUser/
+│ │ ├───contract/
+│ │ │ └───index.ts
+│ │ ├───endpoint/
+│ │ │ └───index.ts
+│ │ └───services/
+│ │ └───db/
+│ │ └───index.ts
+│ ├───updateUser/
+│ │ ├───contract/
+│ │ │ └───index.ts
+│ │ ├───endpoint/
+│ │ │ └───index.ts
+│ │ └───services/
+│ │ └───db/
+│ │ └───index.ts
+│ └───updateUserPassword/
+│ ├───command/
+│ │ └───index.ts
+│ ├───contract/
+│ │ └───index.ts
+│ ├───endpoint/
+│ │ └───index.ts
+│ └───services/
+│ └───db/
+│ └───index.ts
+├───shared/
+│ └───services/
+│ └───hashPassword/
+│ └───index.ts
+└───tests/
+└───integrations/
+└───features/
+└───v1/
+├───createUser/
+│ └───index.test.ts
+├───getUserById/
+│ └───index.test.ts
+├───getUsers/
+│ └───index.test.ts
+├───removeUser/
+│ └───index.test.ts
+├───updateUser/
+│ └───index.test.ts
+└───updateUserPassword/
+└───index.test.ts
+```
