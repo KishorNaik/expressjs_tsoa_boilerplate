@@ -64,6 +64,8 @@ Here’s a quick overview of what’s inside:
 | [linq](https://github.com/mihaifm/linq)                         | LINQ-style query library for expressive data transformations in JavaScript/TypeScript.                               | ❌        |
 | [typeORM](https://typeorm.io/)                                  | Feature-rich ORM for TypeScript with support for decorators, migrations, and multiple databases.                     | ❌        |
 | [class-validator](https://github.com/typestack/class-validator) | Declarative validation for TypeScript classes using decorators — perfect for DTOs and request schemas.               | ✅        |
+| [Sinon.js](https://sinonjs.org/) | A powerful testing utility for creating spies, stubs, and mocks to control and inspect function behavior in unit tests.            | ✅        |
+| [supertest](https://github.com/forwardemail/supertest) | A high-level HTTP assertion library for testing Express.js APIs with fluent syntax and built-in request chaining.            | ✅        |
 
 All of these are pre-integrated and exposed via `@kishornaik/utils` npm package, so you don’t need to install or wire them manually. Just import and go.
 This package is fully open source and designed to empower developers with clean, reusable patterns; whether you're building a small service or scaling a platform.
