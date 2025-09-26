@@ -5,6 +5,8 @@ import { removeDatabase, setDatabase } from './config/db';
 import { runEventDispatcherWorker } from './workers/eventDispatcher';
 
 console.log(`Test Husky`);
+console.log(`Test Husky`);
+
 ValidateEnv();
 
 const bootstrap = () => {
