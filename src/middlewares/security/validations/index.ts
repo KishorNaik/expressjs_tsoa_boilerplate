@@ -2,6 +2,7 @@ import { plainToInstance } from 'class-transformer';
 import { validateOrReject, ValidationError } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 import { DataResponseFactory } from '@kishornaik/utils';
+import { getTraceId } from '@/shared/utils/helpers/loggers';
 
 /**
  * @name ValidationMiddleware
@@ -18,6 +19,7 @@ export const ValidationMiddleware = (
 	forbidNonWhitelisted = false
 ) => {
 	return (req: Request, res: Response, next: NextFunction) => {
+		const traceId = getTraceId();
 		const dto = plainToInstance(type, { ...req.body, ...req.params, ...req.query } as any);
 		validateOrReject(dto, { skipMissingProperties, whitelist, forbidNonWhitelisted })
 			.then(() => {
@@ -28,7 +30,15 @@ export const ValidationMiddleware = (
 				const message = errors
 					.map((error: ValidationError) => Object.values(error.constraints))
 					.join(', ');
-				const dataResponse = DataResponseFactory.response(false, 400, undefined, message);
+				const dataResponse = DataResponseFactory.response(
+					false,
+					400,
+					undefined,
+					message,
+					undefined,
+					traceId,
+					undefined
+				);
 				next(dataResponse);
 			});
 	};

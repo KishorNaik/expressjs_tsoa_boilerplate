@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { logger } from '@/shared/utils/helpers/loggers';
+import { getTraceId, logger } from '@/shared/utils/helpers/loggers';
 import { DataResponse } from '@kishornaik/utils';
 
 export const ErrorMiddleware = (
@@ -12,6 +12,8 @@ export const ErrorMiddleware = (
 		let status: number;
 		let message: string;
 
+		const traceId = getTraceId();
+
 		if ('statusCode' in error && 'message' in error) {
 			const dataResponse: DataResponse<undefined> = error as DataResponse<undefined>;
 			status = dataResponse.statusCode || 500;
@@ -22,7 +24,7 @@ export const ErrorMiddleware = (
 		}
 
 		logger.error(
-			`[${req.method}] || Path::${req.path} || StatusCode:: ${status} || Message:: ${message} || StackTrace:: ${error?.stack}`
+			`[${req.method}] || Path::${req.path} || StatusCode:: ${status} || Message:: ${message} || traceId: ${traceId} || StackTrace:: ${error?.stack}`
 		);
 
 		const errorResponse: DataResponse<undefined> = {
@@ -30,6 +32,7 @@ export const ErrorMiddleware = (
 			statusCode: status,
 			data: undefined,
 			message: message,
+			traceId: traceId,
 		};
 
 		res.status(status).json(errorResponse);

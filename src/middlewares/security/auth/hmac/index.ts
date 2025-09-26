@@ -1,4 +1,4 @@
-import { logConstruct, logger } from '@/shared/utils/helpers/loggers';
+import { getTraceId, logConstruct, logger } from '@/shared/utils/helpers/loggers';
 import {
 	DataResponseFactory,
 	Ok,
@@ -17,6 +17,8 @@ export async function authenticateHmac(req: Request, res: Response, next: NextFu
 	const receivedSignature = req.headers['x-auth-signature'] as string;
 	const clientId = req.headers['x-client-id'] as string;
 
+	const traceId = getTraceId();
+
 	if (!clientId) {
 		logger.error(
 			logConstruct(
@@ -29,7 +31,10 @@ export async function authenticateHmac(req: Request, res: Response, next: NextFu
 			false,
 			403,
 			undefined,
-			'Forbidden - You do not have permission to access this resource: Client Id is required'
+			'Forbidden - You do not have permission to access this resource: Client Id is required',
+			undefined,
+			traceId,
+			undefined
 		);
 		return res.status(403).json(response);
 	}
@@ -46,7 +51,10 @@ export async function authenticateHmac(req: Request, res: Response, next: NextFu
 			false,
 			403,
 			undefined,
-			'Forbidden - You do not have permission to access this resource: Signature is required'
+			'Forbidden - You do not have permission to access this resource: Signature is required',
+			undefined,
+			traceId,
+			undefined
 		);
 		return res.status(403).json(response);
 	}
@@ -65,7 +73,10 @@ export async function authenticateHmac(req: Request, res: Response, next: NextFu
 			false,
 			403,
 			undefined,
-			`Forbidden - You do not have permission to access this resource: ${secretKeyResult.error.message}`
+			`Forbidden - You do not have permission to access this resource: ${secretKeyResult.error.message}`,
+			undefined,
+			traceId,
+			undefined
 		);
 		return res.status(response.statusCode).json(response);
 	}
@@ -86,7 +97,10 @@ export async function authenticateHmac(req: Request, res: Response, next: NextFu
 			false,
 			403,
 			undefined,
-			compareHmacResult.error.message
+			compareHmacResult.error.message,
+			undefined,
+			traceId,
+			undefined
 		);
 		return res.status(response.statusCode).json(response);
 	}
