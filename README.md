@@ -148,15 +148,13 @@ npm run build
 npm run dev
 ```
 Once the server starts, you’ll have access to several built-in endpoints for monitoring and documentation:
-- Health Check → [http://localhost:3000/health]
-Returns a simple status response to confirm the server is alive.
-- API Info → [http://localhost:3000/info]
-Provides metadata about the API — version, environment, and other useful details.
-- Metrics → [http://localhost:3000/metrics]
-Shows metrics information for the current application.
-- Swagger Docs → [http://localhost:3000/api-docs]
-  - Interactive API documentation generated via TSOA and OpenAPI.
-  - ⚠️ Note: Swagger is only available in the development environment for security reasons.
+
+| Endpoint | URL | Description |
+  | :--- | :--- | :--- |
+  | Health Check | http://localhost:3000/health | Returns a simple status response to confirm the server is alive. |
+  | API Info | http://localhost:3000/info | Provides metadata about the API — version, environment, and other useful details. |
+  | Metrics | http://localhost:3000/metrics | Shows metrics information for the current application. |
+  | Swagger Docs | http://localhost:3000/api-docs | Interactive API documentation generated via TSOA and OpenAPI.⚠️ Note: Swagger is only available in the development environment for security reasons. |
 
 These endpoints are part of the boilerplate’s built-in observability and documentation layer — no extra setup required.
 
@@ -275,3 +273,84 @@ All Dockerfiles — for the API and workers — are configured to use PM2 runtim
 #### 🖥️ Local Development Note
 For local development, the API and workers run using standard npm scripts. PM2 is not used by default. However, if you prefer to run services locally using PM2, we’ve provided dedicated scripts for that in the `Available Scripts` section of the documentation.
 
+### 📜 Available Scripts
+This boilerplate comes with a rich set of npm scripts to streamline development, testing, debugging, and deployment. Whether you're running locally with nodemon or managing services with PM2, these commands are designed to support both development and production workflows.
+
+#### 🧪 Development & Load Testing
+| Script Name | Summary |
+  | :--- | :--- |
+  | **start:dev-api-autocannon** | Builds the application and starts the development API with autocannon for load testing using PM2. |
+  | **start:dev-autocannon** | Runs autocannon for load testing against the development environment. |
+  | **start:dev-api** | Builds the application and starts the development API using PM2. |
+  | **start:dev-bullmq** | Builds the application and starts the BullMQ worker for the development environment using PM2. |
+  | **start:dev-cron** | Builds the application and starts the cron worker for the development environment using PM2. |
+  | **start:dev-rabbitmq** | Builds the application and starts the RabbitMQ worker for the development environment using PM2. |
+  | **start:dev-kafka** | Builds the application and starts the Kafka worker for the development environment using PM2. |
+  | **start:dev-pusher** | Builds the application and starts the Pusher worker for the development environment using PM2. |
+
+#### 🚀 Production
+| Script Name | Summary |
+  | :--- | :--- |
+  | **start:prod-api** | Builds the application and starts the production API using PM2. |
+  | **start:prod-bullmq** | Builds the application and starts the BullMQ worker for the production environment using PM2. |
+  | **start:prod-cron** | Builds the application and starts the cron worker for the production environment using PM2. |
+  | **start:prod-rabbitmq** | Builds the application and starts the RabbitMQ worker for the production environment using PM2. |
+  | **start:prod-kafka** | Builds the application and starts the Kafka worker for the production environment using PM2. |
+  | **start:prod-pusher** | Builds the application and starts the Pusher worker for the production environment using PM2. |
+
+#### 🔁 PM2 Management
+| Script Name | Summary |
+  | :--- | :--- |
+  | **pm2:stop:all** | Stops and deletes all running processes managed by PM2. |
+  | **pm2:restart:all** | Restarts all processes managed by PM2. |
+  | **pm2:logs** | Displays logs from all PM2-managed processes. |
+  | **pm2:save** | Saves the current list of running processes to be resurrected on reboot. |
+  | **pm2:monitor** | Opens the PM2 monitoring dashboard in the terminal. |
+  | **pm2:startup** | Generates a startup script to automatically start PM2 and its processes on server boot. |
+
+#### 📦 Build & Compile
+| Script Name | Summary |
+  | :--- | :--- |
+  | **tsoa:spec-and-routes** | Generates OpenAPI (Swagger) specifications and TSOA routes. |
+  | **build** | Cleans the output directory, generates TSOA spec and routes, and then compiles the TypeScript source code. |
+  | **build:dev** | Cleans the output directory, compiles TypeScript, and then transpiles with SWC for development. |
+  | **build:tsc** | Formats the code, generates TSOA spec and routes, and then compiles the TypeScript source code. |
+
+#### 🖥️ Local Development
+| Script Name | Summary |
+  | :--- | :--- |
+  | **dev** | Starts the API in development mode with nodemon for automatic restarts on file changes. |
+  | **dev:api** | An alias for dev, starts the API in development mode with nodemon. |
+  | **dev:cron** | Starts the cron job worker in development mode. |
+  | **dev:bullmq** | Starts the BullMQ worker in development mode. |
+  | **dev:rabbitmq** | Starts the RabbitMQ worker in development mode. |
+  | **dev:kafka** | Starts the Kafka worker in development mode. |
+  | **dev:pusher** | Starts the Pusher worker in development mode. |
+
+#### 🐞 Debugging
+| Script Name | Summary |
+  | :--- | :--- |
+  | **debug:api** | Starts the API in debug mode, allowing a debugger to be attached. |
+  | **debug:cron** | Starts the cron job worker in debug mode. |
+  | **debug:bullmq** | Starts the BullMQ worker in debug mode. |
+  | **debug:rabbitmq** | Starts the RabbitMQ worker in debug mode. |
+  | **debug:kafka** | Starts the Kafka worker in debug mode. |
+  | **debug:pusher** | Starts the Pusher worker in debug mode. |
+  | **debug:all-workers** | Runs all workers (cron, bullmq, rabbitmq, kafka, pusher) concurrently in debug mode. |
+
+#### ✅ Testing & Linting
+| Script Name | Summary |
+  | :--- | :--- |
+  | **run:test** | Executes the run-tests.sh shell script. |
+  | **lint** | Lints all .ts files in the src directory using ESLint. |
+  | **lint:fix** | Lints and automatically fixes all fixable ESLint issues. |
+  | **prettier** | Formats all files in the project with Prettier according to the .prettierrc configuration. |
+
+#### 🧹 Maintenance & Utilities
+| Script Name | Summary |
+  | :--- | :--- |
+  | **clean** | Deletes the dist directory to remove all compiled files. |
+  | **prepare** | A lifecycle script that runs husky to set up Git hooks. |
+  | **npm:outdated** | Shows a list of all outdated npm packages. |
+  | **npm:latest-package-update** | Updates all dependencies to their latest versions using npm-check-updates. |
+  | **trpc:type** | Generates a TypeScript declaration file for the tRPC App Router. |

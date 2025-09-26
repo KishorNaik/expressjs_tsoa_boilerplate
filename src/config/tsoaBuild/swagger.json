@@ -149,7 +149,7 @@
 			},
 			"UpdateUserResponseDto": {
 				"properties": {
-					"identifier": {
+					"message": {
 						"type": "string"
 					}
 				},
@@ -546,6 +546,9 @@
 					},
 					"400": {
 						"description": "Bad Request"
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"description": "Update User Password",
@@ -589,6 +592,12 @@
 					},
 					"400": {
 						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"description": "Update User",
@@ -629,6 +638,15 @@
 								}
 							}
 						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"description": "Remove User",
@@ -662,6 +680,12 @@
 					},
 					"400": {
 						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"description": "Get User By Id",
@@ -700,6 +724,9 @@
 					},
 					"404": {
 						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"description": "Get user with filter",
@@ -759,6 +786,9 @@
 					},
 					"400": {
 						"description": "Bad Request"
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"description": "Create User",
@@ -795,6 +825,9 @@
 					},
 					"400": {
 						"description": "Bad Request"
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"description": "Get Org By Id",
@@ -830,6 +863,9 @@
 					},
 					"400": {
 						"description": "Bad Request"
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"description": "Create Org",

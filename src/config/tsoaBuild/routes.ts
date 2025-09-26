@@ -79,7 +79,7 @@ const models: TsoaRoute.Models = {
     "UpdateUserResponseDto": {
         "dataType": "refObject",
         "properties": {
-            "identifier": {"dataType":"string"},
+            "message": {"dataType":"string"},
         },
         "additionalProperties": false,
     },
