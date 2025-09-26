@@ -32,6 +32,8 @@ Whether you're spinning up a new service or standardizing API development across
 
 This isn’t just a code dump. It’s a thoughtfully crafted starting point for teams who care about velocity, safety, and developer experience.
 
+---
+
 ## 📌 Prerequisites
 
 Before diving into the code, we strongly recommend familiarizing yourself with a few key concepts and libraries that form the foundation of this boilerplate. This will help you write clean, maintainable code and make the most of the built-in tooling.
@@ -64,6 +66,8 @@ Here’s a quick overview of what’s inside:
 
 All of these are pre-integrated and exposed via `@kishornaik/utils` npm package, so you don’t need to install or wire them manually. Just import and go.
 This package is fully open source and designed to empower developers with clean, reusable patterns; whether you're building a small service or scaling a platform.
+
+---
 
 ## ⚙️ Installation & Setup
 
@@ -306,7 +310,28 @@ All Dockerfiles — for the API and workers — are configured to use PM2 runtim
 
 For local development, the API and workers run using standard npm scripts. PM2 is not used by default. However, if you prefer to run services locally using PM2, we’ve provided dedicated scripts for that in the `Available Scripts` section of the documentation.
 
-### 📜 Available Scripts
+### 🐶 Husky Git Hooks
+
+This boilerplate includes Husky to automate Git hook setup and enforce code quality before commits. It helps catch issues early during the commit lifecycle.
+
+#### ⚙️ Setup
+
+To initialize Husky and configure the hooks, run
+
+```bash
+npm run prepare
+```
+
+This will activate the predefined Git hooks.
+
+#### 🛠️ Customizing Hooks
+
+If you’d like to modify the behavior of the pre-commit hook (e.g., add tests, change linting rules), you can edit the script directly here:
+👉 https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/.husky/pre-commit
+
+---
+
+## 📜 Available Scripts
 
 This boilerplate comes with a rich set of npm scripts to streamline development, testing, debugging, and deployment. Whether you're running locally with nodemon or managing services with PM2, these commands are designed to support both development and production workflows.
 
