@@ -1024,6 +1024,8 @@ TSOA builds routes and Swagger documentation based on your folder and file struc
 You can modify tsoa configuration by editing:
 👉 : https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/tsoa.json
 
+📌 Important: Keep your folder structure aligned with `controllerPathGlobs` to ensure TSOA can generate routes and Swagger specs correctly.
+
 ***
 
 ## 🚀 Production Deployment Guide
