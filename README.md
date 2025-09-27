@@ -164,6 +164,9 @@ npm install
 
 ```bash
 npm run build
+OR
+npm run build:tsc
+
 npm run dev
 ```
 
@@ -333,7 +336,36 @@ This will activate the predefined Git hooks.
 If you’d like to modify the behavior of the pre-commit hook (e.g., add tests, change linting rules), you can edit the script directly here:
 👉 https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/.husky/pre-commit
 
----
+### 🧹 Code Formatting & Linting
+
+This boilerplate comes pre-configured with Prettier and ESLint to ensure consistent code style and catch common issues early.
+#### ✨ Prettier
+
+Prettier handles automatic code formatting across the project. It’s already integrated into the build pipeline and runs automatically when you execute:
+```bash
+npm run build:tsc
+```
+To manually format your code:
+```bash
+npm run prettier
+```
+You can customize formatting rules by editing the config file:
+👉: https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/.prettierrc
+
+#### 🔍 ESLint
+ESLint is used to statically analyze your TypeScript code and enforce best practices.
+To run lint checks:
+```bash
+npm run lint
+
+```
+You can modify linting rules by editing:
+👉 : https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/.eslintrc
+
+#### 📌 Note:
+Keeping your codebase clean and consistent is part of the developer experience philosophy behind this boilerplate. These tools are already wired in — just run and go.
+
+***
 
 ## 📜 Available Scripts
 
