@@ -1101,3 +1101,12 @@ You can follow the same Docker build and run pattern for Kafka and RabbitMQ work
 Just create corresponding Dockerfiles (e.g.,`Dockerfile.kafka.prod` ,`Dockerfile.rabbitMq.prod` ) and use the BullMQ setup as a reference for structure, PM2 integration, and runtime behavior.
 
 ***
+
+## 📄 License & Attribution
+This project is licensed under the Apache-2.0 License.
+For details, refer to the LICENSE, NOTICE, and CONTRIBUTORS files.
+
+📌 Contributions are welcome! Please review the license terms before submitting pull requests or using this boilerplate in production.
+
+***
+
