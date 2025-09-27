@@ -616,6 +616,7 @@ Think of `app.ts` as the application builder — it wires together all the core 
 This is the entry point of the application. It:
 - Imports the configured app from `app.ts`
 - Starts the HTTP server
+
 📌 Note: This separation keeps your app logic clean and testable, while isolating server concerns like port binding and lifecycle management.
 
 ### ⚙️ Configuration Directory
