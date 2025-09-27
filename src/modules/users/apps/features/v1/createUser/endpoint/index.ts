@@ -47,7 +47,9 @@ export class CreateUserEndpoint extends Endpoint {
 		@Request() req: express.Request,
 		@Body() body: CreateUserRequestDto
 	): Promise<DataResponse<CreateUserResponseDto>> {
+		// Get Trace Id
 		const traceId = getTraceId();
+
 		try {
 			// Hash Password Service
 			const hashPasswordServiceResult = await this._hashPasswordService.handleAsync({
