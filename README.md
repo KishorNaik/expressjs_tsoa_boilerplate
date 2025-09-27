@@ -1034,6 +1034,11 @@ npm run test
 This command executes every test script defined within the modular structure — including feature-wise tests under `/src/modules/**/tests/integrations/features/v1/**`. It ensures that all domain logic and endpoints are validated in one go.
 
 📌 Note: Tests are organized by module and versioned feature folders to maintain clarity, traceability, and scalability.
+
+#### 📦 Versioning Strategy
+Features are grouped under `v1`,`v2` , etc., allowing you to evolve APIs without breaking existing consumers.
+
+📌 Note: Always create a new version folder when introducing breaking changes to a feature.
 ***
 
 ## 🚀 Production Deployment Guide
