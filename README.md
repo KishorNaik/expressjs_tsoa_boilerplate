@@ -1033,7 +1033,7 @@ npm run test
 ```
 This command executes every test script defined within the modular structure — including feature-wise tests under `/src/modules/**/tests/integrations/features/v1/**`. It ensures that all domain logic and endpoints are validated in one go.
 
-
+📌 Note: Tests are organized by module and versioned feature folders to maintain clarity, traceability, and scalability.
 ***
 
 ## 🚀 Production Deployment Guide
