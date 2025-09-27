@@ -411,7 +411,7 @@ This boilerplate comes with a rich set of npm scripts to streamline development,
 
 | Script Name  | Summary                                                                                    |
 | :----------- | :----------------------------------------------------------------------------------------- |
-| **run:test** | Executes the run-tests.sh shell script.                                                    |
+| **test** | Execute the test cases.                                                    |
 | **lint**     | Lints all .ts files in the src directory using ESLint.                                     |
 | **lint:fix** | Lints and automatically fixes all fixable ESLint issues.                                   |
 | **prettier** | Formats all files in the project with Prettier according to the .prettierrc configuration. |
