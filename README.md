@@ -7,7 +7,7 @@
 
 ## 🚀 Overview
 
-This boilerplate is designed to help you hit the ground running when building RESTful APIs using Express.js, TypeScript, and TSOA. It’s structured for clarity, scalability, and ease of onboarding, especially for teams working in fast-paced startup environments.
+This boilerplate is designed to help you hit the ground running when building RESTful APIs using Express.js, TypeScript, and TSOA with Modular architecture. It’s structured for clarity, scalability, and ease of onboarding, especially for teams working in fast-paced startup environments.
 
 Whether you're spinning up a new service or standardizing API development across projects, this starter kit gives you a solid foundation with:
 
