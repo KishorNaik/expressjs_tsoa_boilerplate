@@ -67,7 +67,7 @@ Here’s a quick overview of what’s inside:
 | [Sinon.js](https://sinonjs.org/) | A powerful testing utility for creating spies, stubs, and mocks to control and inspect function behavior in unit tests.            | ✅        |
 | [supertest](https://github.com/forwardemail/supertest) | A high-level HTTP assertion library for testing Express.js APIs with fluent syntax and built-in request chaining.            | ✅        |
 
-All of these are pre-integrated and exposed via `@kishornaik/utils` npm package, so you don’t need to install or wire them manually. Just import and go.
+Some of these are pre-integrated and exposed via `@kishornaik/utils` npm package, so you don’t need to install or wire them manually. Just import and go.
 This package is fully open source and designed to empower developers with clean, reusable patterns; whether you're building a small service or scaling a platform.
 
 ---
