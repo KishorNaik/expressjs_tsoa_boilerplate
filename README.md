@@ -1064,4 +1064,8 @@ Here are some useful PM2 commands:
 
 For more information on PM2, refer to the [official PM2 documentation](https://pm2.keymetrics.io/docs/usage/quick-start/).
 
+#### 📌 Note:
+You can follow the same Docker build and run pattern for Kafka and RabbitMQ workers as shown for BullMQ.
+Just create corresponding Dockerfiles (e.g.,`Dockerfile.kafka.prod` ,`Dockerfile.rabbitMq.prod` ) and use the BullMQ setup as a reference for structure, PM2 integration, and runtime behavior.
+
 ***
