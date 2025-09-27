@@ -1,6 +1,9 @@
 # ExpressJs Boilerplate Powered by TSOA
 ***
 
+![Node.js](https://img.shields.io/badge/Node.js-22.x-green.svg) ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg) ![License](https://img.shields.io/badge/License-Apache--2.0-yellow.svg)
+
+
 ## 🚀 Overview
 
 This boilerplate is designed to help you hit the ground running when building RESTful APIs using Express.js, TypeScript, and TSOA. It’s structured for clarity, scalability, and ease of onboarding, especially for teams working in fast-paced startup environments.
