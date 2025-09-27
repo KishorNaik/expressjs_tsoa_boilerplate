@@ -950,7 +950,7 @@ In the example above, `users` is the domain, and all shared services related to 
 📌 Note: This structure is intentional. Even shared logic should respect domain boundaries to maintain clarity and modularity.
 
 
-### Domain (Module) Code Structure
+### 🧭 Domain (Module) Code Structure
 ```markdown
 users/
 ├───users.Module.ts
@@ -976,6 +976,10 @@ users/
                 ├───createUser/
                 │   └───index.test.ts
 ```
+
+This boilerplate follows a modular, versioned, vertical slice architecture. Each module encapsulates its own features, services, and tests — making the system scalable and easy to reason about.
+
+
 #### 📦 Folder Breakdown
 - `users/`
 Represents a module. Each module encapsulates its own features, services, and tests.
@@ -1000,6 +1004,26 @@ Integration tests are organized by module and feature version to ensure clarity 
 - Every feature or service must be a `folder`, not a standalone file.
 - The implementation must reside in an `index.ts` file inside that folder.
 - This convention ensures consistency, discoverability, and clean imports across the codebase.
+
+#### 📘 TSOA Routing & Swagger Note
+TSOA builds routes and Swagger documentation based on your folder and file structure. If you change the layout, you must update the `tsoa.json` configuration accordingly:
+```json
+{
+  "entryFile": "src/server.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/modules/**/apps/features/**/endpoint/index.ts"],
+  "spec": {
+    "outputDirectory": "src/config/tsoaBuild",
+    "specVersion": 3
+  },
+  "routes": {
+    "routesDir": "src/config/tsoaBuild"
+  }
+}
+```
+You can modify tsoa configuration by editing:
+👉 : https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/tsoa.json
+
 ***
 
 ## 🚀 Production Deployment Guide
