@@ -1026,6 +1026,14 @@ You can modify tsoa configuration by editing:
 
 📌 Important: Keep your folder structure aligned with `controllerPathGlobs` to ensure TSOA can generate routes and Swagger specs correctly.
 
+#### 🧪 Testing
+To run all integration tests across modules and features, use:
+```bash
+npm run test
+```
+This command executes every test script defined within the modular structure — including feature-wise tests under `/src/modules/**/tests/integrations/features/v1/**`. It ensures that all domain logic and endpoints are validated in one go.
+
+
 ***
 
 ## 🚀 Production Deployment Guide
