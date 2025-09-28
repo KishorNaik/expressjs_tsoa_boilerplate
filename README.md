@@ -20,7 +20,6 @@ Whether you're spinning up a new service or standardizing API development across
 - The boilerplate includes ready-to-use support for various background and messaging workflows:
     - **BullMQ** – A fast and robust queue system for Redis
     - **Cron Jobs** – Time-based job scheduling for recurring tasks
-    - **Kafka** for distributed event streaming
     - **RabbitMQ** – A popular message broker for decoupled services
     - **Kafka** – A distributed streaming platform for high-throughput event pipelines
     - **Pusher** – A real-time messaging service for push notifications and live updates
