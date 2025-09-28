@@ -88,7 +88,7 @@ cd expressjs_tsoa_boilerplate
 
 ### 📁 Configure Environment Variables
 
-Before running the project, create a file in the root directory and populate it with the required environment variables. Here's a sample configuration:
+Before running the project, create a `.env` file in the root directory and populate it with the required environment variables. Here's a sample configuration:
 
 ```bash
 # PORT
