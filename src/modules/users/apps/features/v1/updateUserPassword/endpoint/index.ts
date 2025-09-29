@@ -18,7 +18,11 @@ import express from 'express';
 import { Container, DataResponse, DataResponseFactory, StatusCodes } from '@kishornaik/utils';
 import { ValidationMiddleware } from '@/middlewares/security/validations';
 import { Endpoint } from '@/shared/utils/helpers/tsoa';
-import { UpdateUserPasswordRequestDto, UpdateUserPasswordResponseDto } from '../contract';
+import {
+	UpdateUserPasswordQueryPathRequestDto,
+	UpdateUserPasswordRequestDto,
+	UpdateUserPasswordResponseDto,
+} from '../contract';
 import { UserHashPasswordService } from '@/modules/users/shared/services/hashPassword';
 import { UpdatePasswordDbService } from '../services/db';
 import { getTraceId, logConstruct, logger } from '@/shared/utils/helpers/loggers';
@@ -43,7 +47,12 @@ export class UpdatePasswordUserEndpoint extends Endpoint {
 	@SuccessResponse(StatusCodes.CREATED, 'Ok') // Custom success response
 	@Response(StatusCodes.BAD_REQUEST, 'Bad Request')
 	@Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Internal Server Error')
-	@Middlewares([ValidationMiddleware(UpdateUserPasswordRequestDto)])
+	@Middlewares([
+		ValidationMiddleware({
+			body: UpdateUserPasswordRequestDto,
+			params: UpdateUserPasswordQueryPathRequestDto,
+		}),
+	])
 	public async patchAsync(
 		@Request() req: express.Request,
 		@Path() id: string,
@@ -51,9 +60,6 @@ export class UpdatePasswordUserEndpoint extends Endpoint {
 	): Promise<DataResponse<UpdateUserPasswordResponseDto>> {
 		const traceId = getTraceId();
 		try {
-			// Request
-			body.id = id;
-
 			// Password Hash Service
 			const hashPasswordServiceResult = await this._userHashPasswordService.handleAsync({
 				password: body.password,

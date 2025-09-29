@@ -11,6 +11,7 @@ export const ErrorMiddleware = (
 	try {
 		let status: number;
 		let message: string;
+		let timestamp: string;
 
 		const traceId = getTraceId();
 
@@ -18,13 +19,15 @@ export const ErrorMiddleware = (
 			const dataResponse: DataResponse<undefined> = error as DataResponse<undefined>;
 			status = dataResponse.statusCode || 500;
 			message = dataResponse.message || 'Something went wrong';
+			timestamp = dataResponse.timestamp || new Date().toISOString();
 		} else {
 			status = error.status || 500;
 			message = error.message || 'Something went wrong';
+			timestamp = new Date().toISOString();
 		}
 
 		logger.error(
-			`[${req.method}] || Path::${req.path} || StatusCode:: ${status} || Message:: ${message} || traceId: ${traceId} || StackTrace:: ${error?.stack}`
+			`[${req.method}] || Path::${req.path} ||StatusCode:: ${status} || Message:: ${message} || traceId: ${traceId} || StackTrace:: ${error?.stack}`
 		);
 
 		const errorResponse: DataResponse<undefined> = {
@@ -33,6 +36,7 @@ export const ErrorMiddleware = (
 			data: undefined,
 			message: message,
 			traceId: traceId,
+			timestamp: timestamp,
 		};
 
 		res.status(status).json(errorResponse);

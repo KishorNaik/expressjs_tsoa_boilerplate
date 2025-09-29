@@ -44,7 +44,11 @@ export class GetOrganizationByIdEndpoint extends Endpoint {
 	@SuccessResponse(StatusCodes.OK, 'Ok') // Custom success response
 	@Response(StatusCodes.BAD_REQUEST, 'Bad Request')
 	@Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Internal Server Error')
-	@Middlewares([ValidationMiddleware(GetOrgByIdRequestDto)])
+	@Middlewares([
+		ValidationMiddleware({
+			params: GetOrgByIdRequestDto,
+		}),
+	])
 	public async getAsync(
 		@Request() req: express.Request,
 		@Path() id: string

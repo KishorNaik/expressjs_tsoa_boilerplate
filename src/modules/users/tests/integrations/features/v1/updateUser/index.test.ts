@@ -30,9 +30,9 @@ describe(`update_user_endpoint_integration_test`, () => {
 		requestDto.lastName = 'doe';
 		requestDto.email = 'john@example.com';
 		requestDto.phoneNumber = '9161234567';
-		requestDto.id = crypto.randomUUID().toString();
+		const id = crypto.randomUUID().toString();
 
-		const endpoint = `/api/v1/users/${requestDto.id}`;
+		const endpoint = `/api/v1/users/${id}`;
 
 		const response = await request(app)
 			.put(endpoint)

@@ -28,9 +28,9 @@ describe(`update_user_password_endpoint_integration_test`, () => {
 		// Request Dto
 		const requestDto = new UpdateUserPasswordRequestDto();
 		requestDto.password = `@PasswordJohn123`;
-		requestDto.id = crypto.randomUUID().toString();
+		const id = crypto.randomUUID().toString();
 
-		const endpoint = `/api/v1/users/${requestDto.id}`;
+		const endpoint = `/api/v1/users/${id}`;
 
 		const response = await request(app)
 			.patch(endpoint)

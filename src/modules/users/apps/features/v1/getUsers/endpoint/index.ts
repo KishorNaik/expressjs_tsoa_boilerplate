@@ -48,7 +48,11 @@ export class GetUsersEndpoint extends Endpoint {
 	@Response(StatusCodes.BAD_REQUEST, 'Bad Request')
 	@Response(StatusCodes.NOT_FOUND, 'Not Found')
 	@Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Internal Server Error')
-	@Middlewares([ValidationMiddleware(GetUsersRequestDto)])
+	@Middlewares([
+		ValidationMiddleware({
+			query: GetUsersRequestDto,
+		}),
+	])
 	public async getsAsync(
 		@Request() req: express.Request,
 		@Queries() request: GetUsersRequestDto

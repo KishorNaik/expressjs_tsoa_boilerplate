@@ -1,45 +1,77 @@
 import { plainToInstance } from 'class-transformer';
-import { validateOrReject, ValidationError } from 'class-validator';
+import { validate, ValidationError } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 import { DataResponseFactory } from '@kishornaik/utils';
 import { getTraceId } from '@/shared/utils/helpers/loggers';
 
-/**
- * @name ValidationMiddleware
- * @description Allows use of decorator and non-decorator based validation
- * @param type dto
- * @param skipMissingProperties When skipping missing properties
- * @param whitelist Even if your object is an instance of a validation class it can contain additional properties that are not defined
- * @param forbidNonWhitelisted If you would rather to have an error thrown when any non-whitelisted properties are present
- */
+type ValidationSources = {
+	body?: new () => any;
+	params?: new () => any;
+	query?: new () => any;
+	headers?: new () => any;
+};
+
+interface ValidationOptions {
+	skipMissingProperties?: boolean;
+	whitelist?: boolean;
+	forbidNonWhitelisted?: boolean;
+}
+
 export const ValidationMiddleware = (
-	type: any,
-	skipMissingProperties = false,
-	whitelist = false,
-	forbidNonWhitelisted = false
+	sources: ValidationSources,
+	options: ValidationOptions = {
+		skipMissingProperties: false,
+		whitelist: true,
+		forbidNonWhitelisted: true,
+	}
 ) => {
-	return (req: Request, res: Response, next: NextFunction) => {
+	return async (req: Request, res: Response, next: NextFunction) => {
 		const traceId = getTraceId();
-		const dto = plainToInstance(type, { ...req.body, ...req.params, ...req.query } as any);
-		validateOrReject(dto, { skipMissingProperties, whitelist, forbidNonWhitelisted })
-			.then(() => {
-				req.body = dto;
-				next();
+		const errorMessages: string[] = [];
+
+		const validations = await Promise.all(
+			Object.entries(sources).map(async ([key, dto]) => {
+				if (!dto || typeof dto !== 'function') return [];
+
+				try {
+					const input = plainToInstance(dto, req[key as keyof Request]);
+					const errors = await validate(input, options);
+					return errors;
+				} catch (err) {
+					return [
+						{
+							property: key,
+							constraints: {
+								invalidDto: `Validation failed for '${key}': invalid DTO or transformation error.`,
+							},
+						} as ValidationError,
+					];
+				}
 			})
-			.catch((errors: ValidationError[]) => {
-				const message = errors
-					.map((error: ValidationError) => Object.values(error.constraints))
-					.join(', ');
-				const dataResponse = DataResponseFactory.response(
-					false,
-					400,
-					undefined,
-					message,
-					undefined,
-					traceId,
-					undefined
-				);
-				next(dataResponse);
-			});
+		);
+
+		validations.flat().forEach((error) => {
+			if (error.constraints) {
+				errorMessages.push(...Object.values(error.constraints));
+			} else {
+				errorMessages.push(`Unexpected property '${error.property}' is not allowed`);
+			}
+		});
+
+		if (errorMessages.length > 0) {
+			const message = errorMessages.join(', ');
+			const response = DataResponseFactory.response(
+				false,
+				400,
+				undefined,
+				message,
+				undefined,
+				traceId,
+				undefined
+			);
+			return next(response);
+		}
+
+		next();
 	};
 };

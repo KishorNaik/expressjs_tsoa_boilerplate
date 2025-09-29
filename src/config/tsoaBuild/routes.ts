@@ -70,7 +70,6 @@ const models: TsoaRoute.Models = {
     "UpdateUserPasswordRequestDto": {
         "dataType": "refObject",
         "properties": {
-            "id": {"dataType":"string"},
             "password": {"dataType":"string"},
         },
         "additionalProperties": false,
@@ -102,7 +101,6 @@ const models: TsoaRoute.Models = {
     "UpdateUserRequestDto": {
         "dataType": "refObject",
         "properties": {
-            "id": {"dataType":"string"},
             "firstName": {"dataType":"string"},
             "lastName": {"dataType":"string"},
             "email": {"dataType":"string"},

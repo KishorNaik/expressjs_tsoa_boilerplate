@@ -17,7 +17,11 @@ import express from 'express';
 import { Container, DataResponse, DataResponseFactory, StatusCodes } from '@kishornaik/utils';
 import { ValidationMiddleware } from '@/middlewares/security/validations';
 import { Endpoint } from '@/shared/utils/helpers/tsoa';
-import { UpdateUserRequestDto, UpdateUserResponseDto } from '../contract';
+import {
+	UpdateUserQueryPathRequestDto,
+	UpdateUserRequestDto,
+	UpdateUserResponseDto,
+} from '../contract';
 import { UpdateUserDbService } from '../services/db';
 import { getTraceId, logConstruct, logger } from '@/shared/utils/helpers/loggers';
 
@@ -40,16 +44,20 @@ export class UpdateUserEndpoint extends Endpoint {
 	@Response(StatusCodes.BAD_REQUEST, 'Bad Request')
 	@Response(StatusCodes.NOT_FOUND, 'Not Found')
 	@Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Internal Server Error')
-	@Middlewares([ValidationMiddleware(UpdateUserRequestDto)])
+	@Middlewares([
+		ValidationMiddleware({
+			body: UpdateUserRequestDto,
+			params: UpdateUserQueryPathRequestDto,
+		}),
+	])
 	public async putAsync(
 		@Request() req: express.Request,
-		@Path() id: string,
+		@Path('id') id: string,
 		@Body() body: UpdateUserRequestDto
 	): Promise<DataResponse<UpdateUserResponseDto>> {
 		const traceId = getTraceId();
 		try {
 			// Request
-			body.id = id;
 
 			// Update User Db Service
 			const updateUserDbServiceResult = await this._updateUserDbService.handleAsync(body);

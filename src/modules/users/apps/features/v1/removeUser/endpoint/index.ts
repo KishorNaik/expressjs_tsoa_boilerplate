@@ -40,7 +40,11 @@ export class RemoveUserEndpoint extends Endpoint {
 	@Response(StatusCodes.BAD_REQUEST, 'Bad Request')
 	@Response(StatusCodes.NOT_FOUND, 'Not Found')
 	@Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Internal Server Error')
-	@Middlewares([ValidationMiddleware(RemoveUserRequestDto)])
+	@Middlewares([
+		ValidationMiddleware({
+			params: RemoveUserRequestDto,
+		}),
+	])
 	public async deleteAsync(
 		@Request() req: express.Request,
 		@Path() id: string

@@ -39,7 +39,11 @@ export class GetUserByIdEndpoint extends Endpoint {
 	@Response(StatusCodes.BAD_REQUEST, 'Bad Request')
 	@Response(StatusCodes.NOT_FOUND, 'Not Found')
 	@Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Internal Server Error')
-	@Middlewares([ValidationMiddleware(GetUserByIdRequestDto)])
+	@Middlewares([
+		ValidationMiddleware({
+			params: GetUserByIdRequestDto,
+		}),
+	])
 	public async getAsync(
 		@Request() req: express.Request,
 		@Path() id: string

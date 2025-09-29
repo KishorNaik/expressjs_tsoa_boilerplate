@@ -137,9 +137,6 @@
 			},
 			"UpdateUserPasswordRequestDto": {
 				"properties": {
-					"id": {
-						"type": "string"
-					},
 					"password": {
 						"type": "string"
 					}
@@ -186,9 +183,6 @@
 			},
 			"UpdateUserRequestDto": {
 				"properties": {
-					"id": {
-						"type": "string"
-					},
 					"firstName": {
 						"type": "string"
 					},
