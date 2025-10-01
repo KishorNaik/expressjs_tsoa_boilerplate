@@ -28,7 +28,6 @@ import { TRPCAppRouter } from './modules/app.Module';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import { createContext } from './config/trpc';
 import { RegisterRoutes } from './config/tsoaBuild/routes';
-import { parse } from 'path';
 import { tooBusyMiddleware } from './middlewares/tooBusy';
 
 type ShutdownTask = () => Promise<void>;

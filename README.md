@@ -414,7 +414,8 @@ This boilerplate comes with a rich set of npm scripts to streamline development,
 | Script Name              | Summary                                                                                                    |
 | :----------------------- | :--------------------------------------------------------------------------------------------------------- |
 | **tsoa:spec-and-routes** | Generates OpenAPI (Swagger) specifications and TSOA routes.                                                |
-| **build**                | Cleans the output directory, generates TSOA spec and routes, and then compiles the TypeScript source code. |
+| **build**                | Cleans the output directory, generates TSOA spec and routes with worker scripts, and then compiles the TypeScript source code. |
+| **build:worker**         | Cleans the output directory, compiles worker scripts, and then transpiles with SWC.            |
 | **build:dev**            | Cleans the output directory, compiles TypeScript, and then transpiles with SWC for development.            |
 | **build:tsc**            | Formats the code, generates TSOA spec and routes, and then compiles the TypeScript source code.            |
 

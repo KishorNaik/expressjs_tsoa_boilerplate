@@ -22,7 +22,7 @@ RUN npm audit fix --force
 COPY . .
 
 # Run TypeScript build before starting the app
-RUN npm run build
+RUN npm run build:worker
 
 # Create lightweight runtime image
 FROM node:22.16.0 AS runner

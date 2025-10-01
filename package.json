@@ -30,6 +30,7 @@
 		"pm2:startup": "pm2 startup",
 		"tsoa:spec-and-routes": "tsoa spec && tsoa routes",
 		"build": "npm run clean && npm run tsoa:spec-and-routes && npx tsc && tsc-alias && swc src -d dist --source-maps --copy-files",
+		"build:worker": "npm run clean && npx tsc && tsc-alias && swc src -d dist --source-maps --copy-files",
 		"build:dev": "npm run clean && npm run build:tsc && swc src -d dist --source-maps --copy-files",
 		"build:tsc": "npm run prettier && npm run tsoa:spec-and-routes && tsc && tsc-alias",
 		"dev": "npm run tsoa:spec-and-routes && cross-env NODE_ENV=development nodemon --exec 'node --inspect=0.0.0.0:9229 -r ts-node/register -r tsconfig-paths/register' src/server.ts",

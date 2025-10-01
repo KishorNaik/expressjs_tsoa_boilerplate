@@ -23,7 +23,7 @@ RUN npm audit fix --force
 COPY . .
 
 # Run TypeScript build before starting the app
-RUN npm run build
+RUN npm run build:worker
 
 # Expose development ports
 #EXPOSE 3000
