@@ -1,5 +1,5 @@
 import { workerPlugins } from '@/config/worker';
-import { cronJobWorkerModules } from '@/modules/cronJon.Worker.Module';
+import { cronJobWorkerModules } from '@/modules/cronJob.Worker.Module';
 import { cronJobRunner } from '@/shared/utils/helpers/cronJob';
 import { logger } from '@/shared/utils/helpers/loggers';
 
