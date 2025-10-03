@@ -130,6 +130,9 @@ RABBITMQ_URL=amqp://guest:guest@localhost:5672
 # AES
 ENCRYPTION_KEY=set_your_encryption_key
 
+#HMAC
+HMAC_SECRET_KEY=set_your_default_hmac_key
+
 # Rate Limit and Throttle
 GLOBAL_WINDOW_MINUTES=15
 RATE_LIMITER=150
