@@ -1,11 +1,7 @@
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
 import { Service } from '@kishornaik/utils';
-
-export interface IClaims {
-	id: string;
-	role?: string;
-}
+import { IClaims } from '../../types';
 
 export interface IUserTokenProviderService {
 	getUserId(request: Request): string;

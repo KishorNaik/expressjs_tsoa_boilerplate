@@ -10,13 +10,9 @@ import {
 	Service,
 	StatusCodes,
 } from '@kishornaik/utils';
+import { IClaims } from '../../types';
 
 export type tokenTuples = [accessToken: string, refreshToken: string];
-
-export interface IClaims {
-	id: string;
-	role?: string;
-}
 
 export interface IJwtService {
 	generateTokenAsync(claims: IClaims): Promise<string>;

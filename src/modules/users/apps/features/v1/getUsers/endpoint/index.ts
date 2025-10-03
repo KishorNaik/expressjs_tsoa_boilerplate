@@ -18,7 +18,7 @@ import {
 	Container,
 	DataResponse,
 	DataResponseFactory,
-	getPropertyNameByType,
+	PropertyKeyWrapper,
 	Order,
 	PaginationDataResponseModel,
 	StatusCodes,
@@ -66,8 +66,10 @@ export class GetUsersEndpoint extends Endpoint {
 				request: request,
 				order: {
 					by: [
-						getPropertyNameByType<GetUsersRequestDto>('byEmailId'),
-						getPropertyNameByType<GetUsersRequestDto>('byPhoneNumber'),
+						PropertyKeyWrapper.getPropertyNameByType<GetUsersRequestDto>('byEmailId'),
+						PropertyKeyWrapper.getPropertyNameByType<GetUsersRequestDto>(
+							'byPhoneNumber'
+						),
 					],
 					direction: Order.DESC,
 				},

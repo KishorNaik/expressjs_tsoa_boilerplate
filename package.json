@@ -57,7 +57,7 @@
 		"trpc:type": "npx dts-bundle-generator ./src/modules/app.Module.ts -o trpc-types/TRPCAppRouter.d.ts"
 	},
 	"dependencies": {
-		"@kishornaik/utils": "1.0.9",
+		"@kishornaik/utils": "1.0.12",
 		"@swc/core": "1.13.5",
 		"@trpc/client": "11.5.1",
 		"@trpc/server": "11.5.1",

@@ -1,5 +1,5 @@
 import { JwtService } from '@/modules/shared/users/services/jwt';
-import { IClaims } from '@/modules/shared/users/services/jwtTokenProvider';
+import { IClaims } from '@/modules/shared/users/types';
 import { Container } from '@kishornaik/utils';
 import { initTRPC, TRPCError } from '@trpc/server';
 import * as trpcExpress from '@trpc/server/adapters/express';
