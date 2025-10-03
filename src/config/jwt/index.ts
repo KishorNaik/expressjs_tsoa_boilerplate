@@ -33,14 +33,14 @@ if (algorithm === 'RS256') {
 		issuer,
 		audience,
 		algorithm, // now narrowed to "RS256"
-		jwksUri: process.env.JWT_JWKS_URI!,
+		jwksUri: JWT_JWKS_URI!,
 	};
 } else {
 	jwtProviderConfig = {
 		issuer,
 		audience,
 		algorithm, // now narrowed to "HS256"
-		secret: process.env.JWT_SECRET!,
+		secret: JWT_SECRET_KEY!,
 	};
 }
 
