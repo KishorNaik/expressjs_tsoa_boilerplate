@@ -1,4 +1,4 @@
-import { REFRESH_SECRET_KEY, SECRET_KEY } from '@/config/env';
+import { JWT_AUDIENCE, JWT_ISSUER, JWT_SECRET_KEY, REFRESH_SECRET_KEY } from '@/config/env';
 import jwt from 'jsonwebtoken';
 import {
 	Container,
@@ -10,7 +10,7 @@ import {
 	Service,
 	StatusCodes,
 } from '@kishornaik/utils';
-import { IClaims } from '../../types';
+import { IClaims, JWTPayload } from '../../types';
 
 export type tokenTuples = [accessToken: string, refreshToken: string];
 
@@ -23,54 +23,38 @@ export interface IJwtService {
 
 @Service()
 export class JwtService implements IJwtService {
-	public generateTokenAsync(claims: IClaims): Promise<string> {
-		return new Promise((resolve, reject) => {
-			try {
-				const token: string = jwt.sign(claims, SECRET_KEY, {
-					expiresIn: '1h',
-					algorithm: 'HS256',
-				});
-				resolve(token);
-			} catch (ex) {
-				reject(ex);
-			}
-		});
+	private buildPayload(claims: IClaims, expiresInSeconds: number): JWTPayload {
+		const now = Math.floor(Date.now() / 1000);
+		return {
+			...claims,
+			iss: JWT_ISSUER,
+			aud: JWT_AUDIENCE,
+			sub: claims.id,
+			iat: now,
+			exp: now + expiresInSeconds,
+			typ: 'JWT',
+			alg: 'HS256',
+		};
 	}
 
-	public generateRefreshTokenAsync(claims: IClaims): Promise<string> {
-		return new Promise((resolve, reject) => {
-			try {
-				const token: string = jwt.sign(claims, REFRESH_SECRET_KEY, {
-					expiresIn: '7d',
-					algorithm: 'HS256',
-				});
-				resolve(token);
-			} catch (ex) {
-				reject(ex);
-			}
-		});
+	public async generateTokenAsync(claims: IClaims): Promise<string> {
+		const payload = this.buildPayload(claims, 3600); // 1 hour
+		return jwt.sign(payload, JWT_SECRET_KEY, { algorithm: 'HS256' });
 	}
 
-	public getClaimsFromRefreshTokenAsync(refreshToken: string): Promise<IClaims> {
-		return new Promise((resolve, reject) => {
-			try {
-				const decoded: IClaims = jwt.verify(refreshToken, REFRESH_SECRET_KEY) as IClaims;
-				resolve(decoded);
-			} catch (ex) {
-				reject(ex);
-			}
-		});
+	public async generateRefreshTokenAsync(claims: IClaims): Promise<string> {
+		const payload = this.buildPayload(claims, 7 * 24 * 3600); // 7 days
+		return jwt.sign(payload, REFRESH_SECRET_KEY, { algorithm: 'HS256' });
 	}
 
-	public getClaimsFromAccessTokenAsync(accessToken: string): Promise<IClaims> {
-		return new Promise((resolve, reject) => {
-			try {
-				const decoded: IClaims = jwt.verify(accessToken, SECRET_KEY) as IClaims;
-				resolve(decoded);
-			} catch (ex) {
-				reject(ex);
-			}
-		});
+	public async getClaimsFromRefreshTokenAsync(refreshToken: string): Promise<IClaims> {
+		const decoded = jwt.verify(refreshToken, REFRESH_SECRET_KEY) as JWTPayload;
+		return { id: decoded.id, role: decoded.role };
+	}
+
+	public async getClaimsFromAccessTokenAsync(accessToken: string): Promise<IClaims> {
+		const decoded = jwt.verify(accessToken, JWT_SECRET_KEY) as JWTPayload;
+		return { id: decoded.id, role: decoded.role };
 	}
 }
 
