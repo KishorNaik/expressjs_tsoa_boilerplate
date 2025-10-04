@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import {
 	Container,
 	Err,
+	IServiceHandlerAsync,
 	Ok,
 	Result,
 	ResultError,
@@ -49,18 +50,16 @@ export class JwtService implements IJwtService {
 
 	public async getClaimsFromRefreshTokenAsync(refreshToken: string): Promise<IClaims> {
 		const decoded = jwt.verify(refreshToken, REFRESH_SECRET_KEY) as JWTPayload;
-		return { id: decoded.id, role: decoded.role };
+		return decoded;
 	}
 
 	public async getClaimsFromAccessTokenAsync(accessToken: string): Promise<IClaims> {
 		const decoded = jwt.verify(accessToken, JWT_SECRET_KEY) as JWTPayload;
-		return { id: decoded.id, role: decoded.role };
+		return decoded;
 	}
 }
 
-export interface IJwtExtendedService {
-	generateJwtTokenAsync(claims: IClaims): Promise<Result<tokenTuples, ResultError>>;
-}
+export interface IJwtExtendedService extends IServiceHandlerAsync<IClaims, tokenTuples> {}
 
 @Service()
 export class JwtExtendedService implements IJwtExtendedService {
@@ -69,12 +68,11 @@ export class JwtExtendedService implements IJwtExtendedService {
 	public constructor() {
 		this.jwtService = Container.get(JwtService);
 	}
-
-	public async generateJwtTokenAsync(claims: IClaims): Promise<Result<tokenTuples, ResultError>> {
+	public async handleAsync(params: IClaims): Promise<Result<tokenTuples, ResultError>> {
 		try {
-			const generateJwtTokenPromise = this.jwtService.generateTokenAsync(claims);
+			const generateJwtTokenPromise = this.jwtService.generateTokenAsync(params);
 
-			const generateRefreshTokenPromise = this.jwtService.generateRefreshTokenAsync(claims);
+			const generateRefreshTokenPromise = this.jwtService.generateRefreshTokenAsync(params);
 
 			const [generateJwtTokenResult, generateRefreshTokenResult] = await Promise.all([
 				generateJwtTokenPromise,

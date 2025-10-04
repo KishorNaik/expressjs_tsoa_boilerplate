@@ -515,11 +515,11 @@
 		"securitySchemes": {}
 	},
 	"info": {
-		"title": "NodeExpressApi",
+		"title": "express-tsoa-starter",
 		"version": "1.0.0",
 		"description": "Express API Server",
 		"license": {
-			"name": "ISC"
+			"name": "Apache-2.0"
 		},
 		"contact": {}
 	},

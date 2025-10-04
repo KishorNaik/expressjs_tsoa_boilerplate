@@ -9,6 +9,17 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { getTraceId, logConstruct, logger } from '@/shared/utils/helpers/loggers';
 import { jwtProviderConfig } from '@/config/jwt';
+import { IClaims } from '@/modules/shared/users/types';
+
+// Custom Express Request Type
+declare global {
+	namespace Express {
+		interface Request {
+			claims?: IClaims;
+			jwtTokens?: string;
+		}
+	}
+}
 
 function createJWKSClient(jwksUri: string) {
 	const client = jwksClient({
@@ -35,13 +46,14 @@ export function authenticateJwt(req: Request, res: Response, next: NextFunction)
 		logger.error(
 			logConstruct(`authenticateJwt`, `authenticateJwt`, `You are not authorized`, traceId)
 		);
-		return DataResponseFactory.error(
+		const response = DataResponseFactory.error(
 			StatusCodes.UNAUTHORIZED,
 			`You are not authorized`,
-			null,
+			undefined,
 			traceId,
 			undefined
 		);
+		return res.status(StatusCodes.UNAUTHORIZED).json(response);
 	}
 
 	const verifyOptions = {
@@ -55,19 +67,25 @@ export function authenticateJwt(req: Request, res: Response, next: NextFunction)
 			logger.error(
 				logConstruct(
 					`authenticateJwt`,
-					`authenticateJwt`,
+					`verifyCallback`,
 					`Invalid or expired token`,
 					traceId
 				)
 			);
-			return DataResponseFactory.error(
+			const response = DataResponseFactory.error(
 				StatusCodes.UNAUTHORIZED,
 				`Invalid or expired token`,
-				null,
+				undefined,
 				traceId,
 				undefined
 			);
+			return res.status(StatusCodes.UNAUTHORIZED).json(response);
 		}
+
+		// Set claims & JwtTokens to the express request Object
+		req.claims = decoded as IClaims;
+		req.jwtTokens = token;
+
 		next();
 	};
 
@@ -79,27 +97,51 @@ export function authenticateJwt(req: Request, res: Response, next: NextFunction)
 	}
 }
 
-export function authorizeRole(role: string) {
-	return function (req: any, res: any, next: any) {
+export function authorizeRole(allowedRoles: string | string[]) {
+	return function (req: Request, res: Response, next: NextFunction) {
 		const traceId = getTraceId();
+
+		if (!allowedRoles || allowedRoles.length === 0) {
+			const response = DataResponseFactory.error(
+				StatusCodes.BAD_REQUEST,
+				'You do not pass any allowed roles',
+				undefined,
+				traceId,
+				undefined
+			);
+			return res.status(StatusCodes.BAD_REQUEST).json(response); // 400 (Bad Request)).json(response);
+		}
 
 		const userProviderService: IUserTokenProviderService =
 			Container.get(UserTokenProviderService);
 
-		const roleFromToken = userProviderService.getUserRole(req);
-
-		if (roleFromToken !== role) {
-			const response = DataResponseFactory.response<undefined>(
-				false,
-				403,
-				undefined,
+		const roleFromToken = userProviderService.getUserRole(req)?.trim().toLowerCase();
+		if (!roleFromToken) {
+			const response = DataResponseFactory.error(
+				StatusCodes.FORBIDDEN,
 				'Forbidden - You do not have permission to access this resource',
 				undefined,
 				traceId,
 				undefined
 			);
-			return res.status(403).json(response);
+			return res.status(StatusCodes.FORBIDDEN).json(response);
 		}
+
+		const requiredRoles = Array.isArray(allowedRoles)
+			? allowedRoles.map((r) => r.trim().toLowerCase())
+			: [allowedRoles.trim().toLowerCase()];
+
+		if (!requiredRoles.includes(roleFromToken)) {
+			const response = DataResponseFactory.error(
+				StatusCodes.FORBIDDEN,
+				'Forbidden - You do not have permission to access this resource',
+				undefined,
+				traceId,
+				undefined
+			);
+			return res.status(StatusCodes.FORBIDDEN).json(response);
+		}
+
 		next();
 	};
 }

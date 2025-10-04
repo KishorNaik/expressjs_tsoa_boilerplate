@@ -1,9 +1,9 @@
 {
-	"name": "NodeExpressApi",
+	"name": "express-tsoa-starter",
 	"version": "1.0.0",
 	"description": "Express API Server",
 	"author": "",
-	"license": "ISC",
+	"license": "Apache-2.0",
 	"engines": {
 		"node": ">= 14 <= 22"
 	},
