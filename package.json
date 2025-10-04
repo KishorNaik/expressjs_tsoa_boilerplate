@@ -1,9 +1,18 @@
 {
-	"name": "express-tsoa-starter",
+	"name": "expressjs_tsoa_boilerplate",
 	"version": "1.0.0",
 	"description": "Express API Server",
-	"author": "",
+	"author": "Kishor Chandrakant Naik",
 	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/KishorNaik/expressjs_tsoa_boilerplate.git"
+	},
+	"homepage": "https://github.com/KishorNaik/expressjs_tsoa_boilerplate",
+	"bugs": {
+		"url": "https://github.com/KishorNaik/expressjs_tsoa_boilerplate/issues"
+	},
+	"readme": "https://github.com/KishorNaik/expressjs_tsoa_boilerplate/blob/main/README.md",
 	"engines": {
 		"node": ">= 14 <= 22"
 	},

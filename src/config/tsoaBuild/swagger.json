@@ -515,13 +515,15 @@
 		"securitySchemes": {}
 	},
 	"info": {
-		"title": "express-tsoa-starter",
+		"title": "expressjs_tsoa_boilerplate",
 		"version": "1.0.0",
 		"description": "Express API Server",
 		"license": {
 			"name": "Apache-2.0"
 		},
-		"contact": {}
+		"contact": {
+			"name": "Kishor Chandrakant Naik"
+		}
 	},
 	"paths": {
 		"/api/v1/users/{id}": {
