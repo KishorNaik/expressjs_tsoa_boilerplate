@@ -100,9 +100,18 @@ SERVER_TIMEOUT=15000
 SERVER_KEEP_ALIVE_TIMEOUT=15000
 SERVER_HEADERS_TIMEOUT=16000
 
-# TOKEN
-SECRET_KEY=your_secret_key
-REFRESH_SECRET_KEY=refresh_secret_key
+# JWT TOKEN
+# Shared config
+JWT_ISSUER=https://your-auth-provider/
+JWT_AUDIENCE=your-api-identifier
+JWT_ALGORITHM=HS256
+
+# RS256-specific
+#JWT_JWKS_URI=https://your-auth-provider/.well-known/jwks.json
+
+# HS256-specific (used only if JWT_ALGORITHM=HS256)
+JWT_SECRET_KEY=your-jwt-secret-key
+REFRESH_SECRET_KEY=your-refresh-secret-key
 
 # LOG
 LOG_FORMAT=dev
